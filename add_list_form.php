@@ -110,13 +110,20 @@
                     document.getElementById('listOnly').innerHTML+=`
                             <div class='container'>
 
-                                <div class='sub-container'>
+                                <div class='sub-container' id='list${list.id_list}'>
                                     <div class='colors' style='background-color:${list.color};'></div>
                                     <span class='text'>${list.name}</span>
                                 </div>
                                 <span  class='count'>5</span>
                             </div>
                         `;
+
+                    document.getElementById('listInput').innerHTML+=`
+                        <option id='${list.name}' value='${list.id_list}'>${list.name}</option>
+                    `;
+                    document.getElementById('listInputT').innerHTML+=`
+                        <option id='${list.name}' value='${list.id_list}'>${list.name}</option>
+                    `;
                 }
             }
             xhr.open('POST', 'add_list.php', true)

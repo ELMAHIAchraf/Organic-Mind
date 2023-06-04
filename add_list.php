@@ -9,11 +9,12 @@
 
                 $sql="INSERT INTO lists VALUES('', 1, '$name', '$color')";
                 if(mysqli_query($conn, $sql)){
-                    $tab=array("name"=>$name, "color"=>$color);
+                    $id_list=mysqli_insert_id($conn);
+                    $tab=array("name"=>$name, "color"=>$color, "id_list"=>$id_list);
                     echo json_encode($tab);
                 }else{
                     echo "Error:".mysqli_error($conn);
                 }
 
-           }
+           } 
 ?>

@@ -15,6 +15,16 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="home.js" defer></script>
     <link rel="stylesheet" href="home.css">
+    <style>
+        .subtaskTrash{
+            float: right;
+            margin-right: 30px;
+            color: #676767;
+            margin-top: 3px;
+            display: none;
+            opacity: 0;
+        }
+    </style>
     <title>Home</title>
 </head>
 <body>
@@ -352,10 +362,31 @@
                     </div>
                 </div>
                 <div id="subtasks">
-                    <div class="Subtask">
+                    <div class="Subtask" onmouseover="showTrash(0)" onmouseleave="hideTrash(0)">
                         <i class="fa-duotone fa-list-tree icones"></i>
                         <span class="text noMtext">Subtask 1</span>
+                        <i class="fa-solid fa-trash-can subtaskTrash" onmouseover="shakeTrash(0)" onmouseleave="stopShaking(0)"></i>
                     </div>
+                    <script>
+                        function shakeTrash(index){
+                            document.getElementsByClassName('subtaskTrash')[index].className="fa-solid fa-trash-can fa-shake subtaskTrash";
+                        }
+                        function stopShaking(index){
+                            document.getElementsByClassName('subtaskTrash')[index].className="fa-solid fa-trash-can subtaskTrash";
+                        }
+
+                        function showTrash(index){
+                            document.getElementsByClassName('subtaskTrash')[index].style.display='block';
+                            setTimeout(function(){
+                            document.getElementsByClassName('subtaskTrash')[index].style.opacity='1';
+                            document.getElementsByClassName('subtaskTrash')[index].style.transition='1s';
+                            });
+                        }
+                        function hideTrash(index){
+                            document.getElementsByClassName('subtaskTrash')[index].style.display='none';
+                            document.getElementsByClassName('subtaskTrash')[index].style.opacity='0';
+                        }
+                    </script>
                     <div class="Subtask">  
                         <i class="fa-duotone fa-list-tree icones"></i>
                         <span class="text noMtext">Subtask 2</span>

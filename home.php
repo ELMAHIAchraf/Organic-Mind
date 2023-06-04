@@ -22,6 +22,8 @@
         include('connexion.php');
         include('add_sticky_form.php');
         include('add_list_form.php');
+        include('add_subtask_form.php');
+        include('add_task_form.php');
     ?>
     <i id="openMenu" class="fa-solid fa-bars menuIcon" onclick="menuControl('open')"></i>
 
@@ -48,7 +50,15 @@
                     <i class="fa-solid fa-angles-right icones"></i>
                     <span class="text">Upcoming</span>
                 </div>
-                <span  class="count">12</span>
+                <span  class="count">
+                <?php
+                    $date=date("Y-m-d");
+                    $sql7="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date>'$date'";
+                    $query7=mysqli_query($conn, $sql7);
+                    $tab7=mysqli_fetch_assoc($query7);
+                    echo $tab7['taskCount'];
+                ?>
+                </span>
             </div>
 
             <div class="container" id="todayOpt" onclick="showMain('today')">
@@ -56,7 +66,15 @@
                     <i class="fa-solid fa-list-check icones"></i>
                     <span class="text">Today</span>
                 </div>
-                <span  class="count" >2</span>
+                <span  class="count" id="countTask">
+                    <?php
+                        $date=date("Y-m-d");
+                         $sql5="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date='$date'";
+                         $query5=mysqli_query($conn, $sql5);
+                         $tab5=mysqli_fetch_assoc($query5);
+                         echo $tab5['taskCount'];
+                    ?>
+                </span>
             </div>
 
             <div class="container" id="calendarOpt" onclick="showMain('calendar')">
@@ -81,14 +99,18 @@
                 <?php
                     $sql2="SELECT * FROM lists WHERE id_user=1";
                     $query2=mysqli_query($conn, $sql2);
+                    $query2Dup=mysqli_query($conn, $sql2);
                     while($tab2=mysqli_fetch_assoc($query2)){
+                        $sql6="SELECT count(id_task) FROM lists NATURAL JOIN tasks WHERE id_list={$tab2['id_list']} AND id_user=1";
+                        $query6=mysqli_query($conn, $sql6);
+                        $tab6=mysqli_fetch_row($query6);
                         echo "
                             <div class='container'>
                                 <div class='sub-container'>
                                     <div class='colors' style='background-color:{$tab2['color_list']};'></div>
                                     <span class='text'>{$tab2['name_list']}</span>
                                 </div>
-                                <span  class='count'>5</span>
+                                <span  class='count' id='listCount{$tab2['id_list']}'>$tab6[0]</span>
                             </div>
                             ";
                     }
@@ -115,62 +137,72 @@
 
     <div id="today" class="mainDiv" >
         <h1 class="todayTitle">Today</h1>
-        <span  id="todayCount">2</span>
+        <span  id="todayCount">
+            <?php
+                $current_date=date('Y-m-d');
+                 $sql5="SELECT count(id_task) AS tasksCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date='$current_date'";
+                 $query5=mysqli_query($conn, $sql5);
+                 $tab5=mysqli_fetch_assoc($query5);
+                 if(!empty($tab5)){
+                    echo $tab5['tasksCount'];
+                 }else{
+                    echo 0;
+                 }
+            ?>
+        </span>
 
         <div id="addTask">
-            <div class="sub-addTask">
+            <div class="sub-addTask" onclick='displayTaskForm()'>
                 <i class="fa-solid fa-plus icones noMIcon"></i>
                 <span class="text noMtext">Add New Task</span>
             </div>
         </div>
+        <div id="tasksCont">
+        <?php
+            $sql3="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date='$current_date'";
+            $query3=mysqli_query($conn, $sql3);
+            while($tab3=mysqli_fetch_assoc($query3)){
+                $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab3['id_task']}";
+                $query4=mysqli_query($conn, $sql4);
+                $tab4=mysqli_fetch_row($query4);
 
-        <div class="tasks" onclick="controlTasksMenu('open')">
-            <div class="tasks2">
-                <span class="text noMtext tasksName">Research content ideas</span>
-                <i class="fa-solid fa-angle-up fa-rotate-90 rightCarret"></i>
-            </div>
-            
-            <div class="infoDiv FinfoDiv">
-                <div class="infoDiv"></div>
-                    <i class="fa-solid fa-calendar-xmark icones"></i>
-                    <span class="subInfo">22-03-22</span>
-                </div>
-                <div class="infoDiv">
-                    <span class="subInfo count fix">1</span>
-                    <span class="subInfo">Subtasks</span>
-                </div>
-                <div class="infoDiv LinfoDiv">
-                    <div class="colors Pcolor"></div>
-                    <span class="subInfo">Personal</span>
-                </div>
-            </div>
-
-            <div class="tasks">
-                <div class="tasks2">
-                    <span class="text noMtext tasksName">Create database of guest authors</span>
-                    <i class="fa-solid fa-angle-up fa-rotate-90 rightCarret"></i>
-                </div>
-                
-                <div class="infoDiv FinfoDiv">
-                    <div class="infoDiv"></div>
-                        <i class="fa-solid fa-calendar-xmark icones"></i>
-                        <span class="subInfo">22-06-22</span>
+                $date=date_create("{$tab3['due_date']}");
+                $date=date_format($date,"y-m-d");
+                echo "
+                <div class='tasks' id='{$tab3['id_task']}' onclick=\"controlTasksMenu('open', this.id)\">
+                    <div class='tasks2'>
+                        <span class='text noMtext tasksName' id='taskName{$tab3['id_task']}'>{$tab3['name_task']}</span>
+                        <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
                     </div>
-                    <div class="infoDiv">
-                        <span class="subInfo count fix">0</span>
-                        <span class="subInfo">Subtasks</span>
-                    </div>
-                    <div class="infoDiv LinfoDiv">
-                        <div class="colors Wcolor"></div>
-                        <span class="subInfo">Work</span>
+                    
+                    <div class='infoDiv FinfoDiv'>
+                        <div class='infoDiv'></div>
+                            <i class='fa-solid fa-calendar-xmark icones'></i>
+                            <span class='subInfo' id='taskDate{$tab3['id_task']}'>$date</span>
+                        </div>
+                        <div class='infoDiv'>
+                            <span class='subInfo count fix' id='subCount{$tab3['id_task']}'>$tab4[0]</span>
+                            <span class='subInfo'>Subtasks</span>
+                        </div>
+                        <div class='infoDiv LinfoDiv'>
+                            <div class='colors' id='taskListColor{$tab3['id_task']}' style='background-color:{$tab3['color_list']};'></div>
+                            <span class='subInfo' id='taskListName{$tab3['id_task']}'>{$tab3['name_list']}</span>
                     </div>
                 </div>
+                ";
+             }
+        ?>
+        </div>
+           
     </div>
-    <!-------------------------HERE---------------------------->
     <div id="upcoming" class="mainDiv">
 
         <h1 class="todayTitle">Upcoming</h1>
-        <span  id="todayCount">2</span>
+        <span  id="todayCount">
+        <?php
+             echo $tab7['taskCount'];
+        ?>
+        </span>
 
         <div id="upcomingContainer"> 
             <div class="upcomingDivs">         
@@ -183,47 +215,43 @@
                 </div>
             </div>
 
-            <div class="tasks" onclick="controlTasksMenu('open')">
-                <div class="tasks2">
-                    <span class="text noMtext tasksName">Create job posting for SEO specialist</span>
-                    <i class="fa-solid fa-angle-up fa-rotate-90 rightCarret"></i>
-                </div>
-                
-                <div class="infoDiv FinfoDiv">
-                    <div class="infoDiv"></div>
-                        <i class="fa-solid fa-calendar-xmark icones"></i>
-                        <span class="subInfo">22-03-22</span>
-                    </div>
-                    <div class="infoDiv">
-                        <span class="subInfo count fix">2</span>
-                        <span class="subInfo">Subtasks</span>
-                    </div>
-                    <div class="infoDiv LinfoDiv">
-                        <div class="colors Lcolor"></div>
-                        <span class="subInfo">List 1</span>
-                    </div>
-                </div>
-
-                <div class="tasks">
-                    <div class="tasks2">
-                        <span class="text noMtext tasksName">Reuqest design assets for landing page</span>
-                        <i class="fa-solid fa-angle-up fa-rotate-90 rightCarret"></i>
-                    </div>
-                    
-                    <div class="infoDiv FinfoDiv">
-                        <div class="infoDiv"></div>
-                            <i class="fa-solid fa-calendar-xmark icones"></i>
-                            <span class="subInfo">22-06-22</span>
-                        </div>
-                        <div class="infoDiv">
-                            <span class="subInfo count fix">0</span>
-                            <span class="subInfo">Subtasks</span>
-                        </div>
-                        <div class="infoDiv LinfoDiv">
-                            <div class="colors Wcolor"></div>
-                            <span class="subInfo">Work</span>
-                        </div>
-                    </div>
+            <div id="tomorrowTasksCont">
+                <?php
+                    $date=date("Y-m-d", time()+24*3600);
+                     $sql8="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date='$date'";
+                     $query8=mysqli_query($conn, $sql8);
+                     while($tab8=mysqli_fetch_assoc($query8)){
+                         $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab8['id_task']}";
+                         $query4=mysqli_query($conn, $sql4);
+                         $tab4=mysqli_fetch_row($query4);
+         
+                         $date=date_create("{$tab8['due_date']}");
+                         $date=date_format($date,"y-m-d");
+                         echo "
+                         <div class='tasks' id='{$tab8['id_task']}' onclick=\"controlTasksMenu('open', this.id)\">
+                             <div class='tasks2'>
+                                 <span class='text noMtext tasksName' id='taskName{$tab8['id_task']}'>{$tab8['name_task']}</span>
+                                 <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
+                             </div>
+                             
+                             <div class='infoDiv FinfoDiv'>
+                                 <div class='infoDiv'></div>
+                                     <i class='fa-solid fa-calendar-xmark icones'></i>
+                                     <span class='subInfo' id='taskDate{$tab8['id_task']}'>$date</span>
+                                 </div>
+                                 <div class='infoDiv'>
+                                     <span class='subInfo count fix' id='subCount{$tab8['id_task']}'>$tab4[0]</span>
+                                     <span class='subInfo'>Subtasks</span>
+                                 </div>
+                                 <div class='infoDiv LinfoDiv'>
+                                     <div class='colors' id='taskListColor{$tab8['id_task']}' style='background-color:{$tab8['color_list']};'></div>
+                                     <span class='subInfo' id='taskListName{$tab8['id_task']}'>{$tab8['name_list']}</span>
+                             </div>
+                         </div>
+                         ";
+                      }
+                ?>
+            </div>
             </div>
             <div class="upcomingDivs">         
                 <h1 class="subTitle">This Week</h1>
@@ -235,51 +263,46 @@
                     </div>
                 </div>
 
-                <div class="taskContainer">
-                <div class="tasks" onclick="controlTasksMenu('open')">
-                    <div class="tasks2">
-                        <span class="text noMtext tasksName">Consult accountant</span>
-                        <i class="fa-solid fa-angle-up fa-rotate-90 rightCarret"></i>
-                    </div>
-                    
-                    <div class="infoDiv FinfoDiv">
-                        <div class="infoDiv"></div>
-                            <i class="fa-solid fa-calendar-xmark icones"></i>
-                            <span class="subInfo">22-03-22</span>
-                        </div>
-                        <div class="infoDiv">
-                            <span class="subInfo count fix">1</span>
-                            <span class="subInfo">Subtasks</span>
-                        </div>
-                        <div class="infoDiv LinfoDiv">
-                            <div class="colors Wcolor"></div>
-                            <span class="subInfo">Work</span>
-                        </div>
-                    </div>
-    
-                    <div class="tasks">
-                        <div class="tasks2">
-                            <span class="text noMtext tasksName">Print business card</span>
-                            <i class="fa-solid fa-angle-up fa-rotate-90 rightCarret"></i>
-                        </div>
-                        
-                        <div class="infoDiv FinfoDiv">
-                            <div class="infoDiv"></div>
-                                <i class="fa-solid fa-calendar-xmark icones"></i>
-                                <span class="subInfo">22-06-22</span>
+                <div id="tomorrowTasksCont" >
+                
+                <?php
+                        $date=date("Y-m-d", time()+24*3600);
+                        $LastDayOfTheWeek=date("Y-m-d", strtotime("next Sunday"));
+                        $sql9="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND (due_date BETWEEN '$date' AND '$LastDayOfTheWeek')";
+                        $query9=mysqli_query($conn, $sql9);
+                        while($tab9=mysqli_fetch_assoc($query9)){
+                            $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab9['id_task']}";
+                            $query4=mysqli_query($conn, $sql4);
+                            $tab4=mysqli_fetch_row($query4);
+            
+                            $date=date_create("{$tab9['due_date']}");
+                            $date=date_format($date,"y-m-d");
+                            echo "
+                            <div class='tasks' id='{$tab9['id_task']}' onclick=\"controlTasksMenu('open', this.id)\">
+                                <div class='tasks2'>
+                                    <span class='text noMtext tasksName' id='taskName{$tab9['id_task']}'>{$tab9['name_task']}</span>
+                                    <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
+                                </div>
+                                
+                                <div class='infoDiv FinfoDiv'>
+                                    <div class='infoDiv'></div>
+                                        <i class='fa-solid fa-calendar-xmark icones'></i>
+                                        <span class='subInfo' id='taskDate{$tab9['id_task']}'>$date</span>
+                                    </div>
+                                    <div class='infoDiv'>
+                                        <span class='subInfo count fix' id='subCount{$tab9['id_task']}'>$tab4[0]</span>
+                                        <span class='subInfo'>Subtasks</span>
+                                    </div>
+                                    <div class='infoDiv LinfoDiv'>
+                                        <div class='colors' id='taskListColor{$tab9['id_task']}' style='background-color:{$tab9['color_list']};'></div>
+                                        <span class='subInfo' id='taskListName{$tab9['id_task']}'>{$tab9['name_list']}</span>
+                                </div>
                             </div>
-                            <div class="infoDiv">
-                                <span class="subInfo count fix">0</span>
-                                <span class="subInfo">Subtasks</span>
-                            </div>
-                            <div class="infoDiv LinfoDiv">
-                                <div class="colors Wcolor"></div>
-                                <span class="subInfo">Work</span>
-                            </div>
-                        </div>
-                        
-                        
-                       
+                            ";
+                         }  
+                    ?>
+                      
+                              
                     </div>
                 </div>
         </div>  
@@ -300,7 +323,7 @@
                         <div class='stickyDiv' id='' style='background-color:{$tab['color_sticky']};'>
                             <h3 class='stickyHeader'>{$tab['name_sticky']}</h3>
                             <p class='stickyContent'>{$description}</p>
-                            <div class='trashContainer' onclick='sortIndexes();removeSticky(this.parentNode.id)'><i class='fa-solid fa-trash-can trashIcon'></i></div>
+                            <div class='trashContainer' onclick=();removeSticky(this.parentNode.id)'><i class='fa-solid fa-trash-can trashIcon'></i></div>
                             <input type='hidden' class='idValue' value='{$tab['id_sticky']}'>
                         </div>
                     ";
@@ -318,26 +341,29 @@
         </div>
 
         <div>
-                <form action="" method="POST">
+                <form >
                     <div id="taskName">
-                        <input class="inputs"  type="text" placeholder="Task's name" value="Research content ideas">
+                        <input class="inputs" id="nameInput"  type="text" placeholder="Task's name">
                     </div>
                     <div id="taskDesc">
-                        <textarea name="" class="inputs">Description</textarea>
+                        <textarea id="descriptionInput" class="inputs" placeholder="Description"></textarea>
                     </div>
                     <div id="list">
                         <br><label class="text">List</label>
                         <div class="metaInfoDiv metaInfoDiv1">
-                            <select name="" class="metaInfo" id="">
-                                <option value="Work">Work</option>
-                                <option value="Personal">Personal</option>
-                                <option value="Liste 1">Liste 1</option>
+                            <select class="metaInfo" id="listInput">
+                                <?php
+                                    while($tab4=mysqli_fetch_assoc($query2Dup)){
+                                        echo "<option id='{$tab4['name_list']}' value='{$tab4['id_list']}'>{$tab4['name_list']}</option>";
+                                    }
+                                ?>
                             </select>
                         </div>
                     </div>
                     <div id="date">
                         <br><label class="text">Due date</label>
-                        <div class="metaInfoDiv metaInfoDiv2"><input type="date" class="metaInfo"></div>
+                        <div class="metaInfoDiv metaInfoDiv2"><input id="dateInput" type="date" class="metaInfo"></div>
+                        <input type="hidden" id="idInput">
                     </div>
                 </form>
         </div>
@@ -347,46 +373,21 @@
 
             <div>
                 <div id="addSubtask">
-                    <div >
+                    <div onclick="displaySubtaskForm()">
                         <i class="fa-solid fa-plus icones noMIcon"></i>
                         <span class="text noMtext">Add New Subtask</span>
                     </div>
                 </div>
                 <div id="subtasks">
-                    <div class="Subtask">
-                        <i class="fa-duotone fa-list-tree icones"></i>
-                        <span class="text noMtext">Subtask 1</span>
-                    </div>
-                    <div class="Subtask">  
-                        <i class="fa-duotone fa-list-tree icones"></i>
-                        <span class="text noMtext">Subtask 2</span>
-                    </div>
-                    <div class="Subtask">  
-                        <i class="fa-duotone fa-list-tree icones"></i>
-                        <span class="text noMtext">Subtask 3</span>
-                    </div>
-                    <div class="Subtask">  
-                        <i class="fa-duotone fa-list-tree icones"></i>
-                        <span class="text noMtext">Subtask 4</span>
-                    </div>
-                    <div class="Subtask">  
-                        <i class="fa-duotone fa-list-tree icones"></i>
-                        <span class="text noMtext">Subtask 5</span>
-                    </div>
-                    <div class="Subtask">  
-                        <i class="fa-duotone fa-list-tree icones"></i>
-                        <span class="text noMtext">Subtask 6</span>
-                    </div>
-                    <div class="Subtask">  
-                        <i class="fa-duotone fa-list-tree icones"></i>
-                        <span class="text noMtext">Subtask 7</span>
-                    </div>
+                    
                 </div>
             </div>
         </div>
         <div id="buttons">
-            <div id="delButtDiv"><button id="delButt">Delete Task</button></div>
-            <button id="saveButt">Save changes</button>
+            <form>
+                <div id="delButtDiv"><button type="button" id="delButt" onclick="deleteTask()">Delete Task</button></div>
+                <button type="button" id="saveButt" onclick="saveTaskChanges()">Save changes</button>
+            </form>
         </div>
 
     

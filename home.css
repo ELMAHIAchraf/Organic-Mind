@@ -363,6 +363,14 @@ textarea{
     height: 130px;
     overflow: auto;
 }
+.subtaskTrash{
+    float: right;
+    margin-right: 30px;
+    color: #676767;
+    margin-top: 3px;
+    display: none;
+    opacity: 0;
+}
 button{
     border: none;
     padding: 10px 30px;
