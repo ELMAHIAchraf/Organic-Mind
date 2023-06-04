@@ -17,11 +17,12 @@
 </span>
 
 <div id="upcomingContainer"> 
+    <div id="firstRow">
     <div class="upcomingDivs">         
     <h1 class="subTitle">Tomorrow</h1>
     <div id="addTask">
             <?php $date=date("Y-m-d", time()+24*3600); ?>
-        <div class="sub-addTask" onclick='displayTaskForm("tomorrowTasksCont;thisWeekTasksCont;", "<?php echo $date ?>", "<?php echo $date ?>")'>
+        <div class="sub-addTask" onclick='displayTaskForm("tomorrowTasksCont;thisWeekTasksCont;laterTasksCont;", "<?php echo $date ?>", "<?php echo $date ?>")'>
             <i class="fa-solid fa-plus icones noMIcon"></i>
             <span class="text noMtext">Add New Task</span>
         </div>
@@ -73,7 +74,7 @@
                     $date=date("Y-m-d", time()+48*3600); 
                     $lastDayInTheWeekend=date("Y-m-d", strtotime("next Sunday")) ;   
                 ?>
-            <div class="sub-addTask" onclick='displayTaskForm("thisWeekTasksCont;", "<?php echo $date ?>", "<?php echo $lastDayInTheWeekend ?>")' >
+            <div class="sub-addTask" onclick='displayTaskForm("thisWeekTasksCont;laterTasksCont;", "<?php echo $date ?>", "<?php echo $lastDayInTheWeekend ?>")' >
                 <i class="fa-solid fa-plus icones noMIcon"></i>
                 <span class="text noMtext">Add New Task</span>
             </div>
@@ -121,6 +122,58 @@
                       
             </div>
         </div>
+        </div>
+
+        <div class="upcomingDivs" id="laterContainer">         
+    <h1 class="subTitle">Later</h1>
+    <div id="addTask">
+        <?php  
+            $firstDayOfTheWeek=date("Y-m-d", strtotime("next Sunday +1 day"));
+            $lastDayInTheYear=date("Y-12-31");
+        ?>
+        <div class="sub-addTask" onclick='displayTaskForm("laterTasksCont;", "<?php echo $firstDayOfTheWeek ?>", "<?php echo "$lastDayInTheYear" ?>")'>
+            <i class="fa-solid fa-plus icones noMIcon"></i>
+            <span class="text noMtext">Add New Task</span>
+        </div>
+    </div>
+    <div id="laterTasksCont">
+        <?php
+                $LastDayOfTheWeek=date("Y-m-d", strtotime("tomorrow"));
+             $sql8="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date>='$LastDayOfTheWeek'";
+             $query8=mysqli_query($conn, $sql8);
+             while($tab8=mysqli_fetch_assoc($query8)){
+                 $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab8['id_task']}";
+                 $query4=mysqli_query($conn, $sql4);
+                 $tab4=mysqli_fetch_row($query4);
+ 
+                 $date=date_create("{$tab8['due_date']}");
+                 $date=date_format($date,"y-m-d");
+                 echo "
+                 <div class='tasks cl{$tab8['id_task']}' id='{$tab8['id_task']}'  onclick=\"controlTasksMenu('open', this.id)\">
+                     <div class='tasks2'>
+                         <span class='text noMtext tasksName' id='taskName{$tab8['id_task']}'>{$tab8['name_task']}</span>
+                         <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
+                     </div>
+                     
+                     <div class='infoDiv FinfoDiv'>
+                         <div class='infoDiv'></div>
+                             <i class='fa-solid fa-calendar-xmark icones'></i>
+                             <span class='subInfo' id='taskDate{$tab8['id_task']}'>$date</span>
+                         </div>
+                         <div class='infoDiv'>
+                             <span class='subInfo count fix subCounts{$tab8['id_task']}' id='subCount{$tab8['id_task']}'>$tab4[0]</span>
+                             <span class='subInfo'>Subtasks</span>
+                         </div>
+                         <div class='infoDiv LinfoDiv'>
+                             <div class='colors' id='taskListColor{$tab8['id_task']}' style='background-color:{$tab8['color_list']};'></div>
+                             <span class='subInfo' id='taskListName{$tab8['id_task']}'>{$tab8['name_list']}</span>
+                     </div>
+                 </div>
+                 ";
+              }
+        ?>
+    </div>
+    </div>
 </div>  
 </div>
 </body>

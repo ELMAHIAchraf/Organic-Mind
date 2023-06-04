@@ -35,7 +35,7 @@
                     </div>
                     <div id="date">
                         <br><label class="text">Due date</label>
-                        <div class="metaInfoDiv metaInfoDiv2"><input id="dateInput" type="date" class="metaInfo"></div>
+                        <div class="metaInfoDiv metaInfoDiv2"><input id="dateInput" min="<?php echo date("Y-m-d") ?>" type="date" class="metaInfo"></div>
                         <input type="hidden" id="idInput">
                     </div>
                 </form>

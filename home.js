@@ -22,6 +22,7 @@ function controlTasksMenu(action, id_task){
                         document.getElementById('idInput').value=task.id_task;
                         document.getElementById('nameInput').value=task.name_task;
                         document.getElementById('descriptionInput').value=task.description_task;
+                        /* list wont appear*/
                         document.getElementById(task.name_list).setAttribute('selected', 'selected');
                         document.getElementById('dateInput').value=task.due_date;
 
@@ -95,11 +96,23 @@ function hideTrash(index){
 
 let oldclicked='today';
 function showMain(div){
-    document.getElementById(div+"Opt").style.backgroundColor='#e4e4e4';
-    document.getElementById(oldclicked+"Opt").style.backgroundColor='transparent';
+    document.getElementById(oldclicked+"Opt").style.backgroundColor='#F1F1F1';
 
-    document.getElementById(div).style.display='inline-block';
+    document.getElementById(div+"Opt").style.backgroundColor='#e4e4e4';
+    
+    if(div=="upcoming" || div=="today"){
+        if(oldclicked=="upcoming" || oldclicked=="today"){
+            document.getElementById(oldclicked+"CountTask").style.backgroundColor='#e4e4e4';
+        }
+        document.getElementById(div+"CountTask").style.backgroundColor='white';
+    }else{
+        if(oldclicked=="upcoming" || oldclicked=="today"){
+            document.getElementById(oldclicked+"CountTask").style.backgroundColor='#e4e4e4';
+        }
+    }
+
     document.getElementById(oldclicked).style.display='none';
+    document.getElementById(div).style.display='inline-block';
     oldclicked=div;
 }
 

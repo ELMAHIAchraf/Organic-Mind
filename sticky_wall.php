@@ -20,7 +20,7 @@
                         <div class='stickyDiv' id='' style='background-color:{$tab['color_sticky']};'>
                             <h3 class='stickyHeader'>{$tab['name_sticky']}</h3>
                             <p class='stickyContent'>{$description}</p>
-                            <div class='trashContainer' onclick=();removeSticky(this.parentNode.id)'><i class='fa-solid fa-trash-can trashIcon'></i></div>
+                            <div class='trashContainer' onclick='sortIndexes();removeSticky(this.parentNode.id)'><i class='fa-solid fa-trash-can trashIcon'></i></div>
                             <input type='hidden' class='idValue' value='{$tab['id_sticky']}'>
                         </div>
                     ";
