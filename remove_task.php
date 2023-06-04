@@ -8,9 +8,12 @@
                 $query2=mysqli_query($conn, $sql2);
                 $tab2=mysqli_fetch_row($query2);
                 
-                $sql="DELETE FROM tasks WHERE id_task=$id_task";
+                $sql="DELETE FROM subtasks WHERE id_task=$id_task";
                 if(mysqli_query($conn, $sql)){
-                    echo $tab2[0];
+                    $sql="DELETE FROM tasks WHERE id_task=$id_task";
+                    if(mysqli_query($conn, $sql)){
+                        echo $tab2[0];
+                    }
                 }else{
                     echo "Error:".mysqli_error($conn);
                 }

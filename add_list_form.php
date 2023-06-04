@@ -114,7 +114,7 @@
                                     <div class='colors' style='background-color:${list.color};'></div>
                                     <span class='text'>${list.name}</span>
                                 </div>
-                                <span  class='count'>5</span>
+                                <span  class='count'>0</span>
                             </div>
                         `;
 

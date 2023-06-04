@@ -10,6 +10,9 @@
                 $description=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['description'])));
                 $list=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['list'])));
                 $date=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['date'])));
+                
+                $date=date_create($date);
+                $date=date_format($date, "y-m-d");
 
                 $sql2="SELECT * FROM lists WHERE id_list=$list";
                 $query2=mysqli_query($conn, $sql2);

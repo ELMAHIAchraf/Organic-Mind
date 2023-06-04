@@ -60,9 +60,13 @@ function deleteSubtask(id_subtask){
                 if(xhr.status==200){
                     if(xhr.responseText){
                         document.getElementById(id_subtask).style.display="none";
-                        let count=document.getElementById(`subCount${xhr.responseText}`).innerHTML;
+                        
+                        let className=document.getElementsByClassName(`subCounts${xhr.responseText}`);
+                        let count=className[0].innerHTML;
                         count--;
-                        document.getElementById(`subCount${xhr.responseText}`).innerHTML=count;
+                        for(let i=0; i<className.length; i++){
+                            className[i].innerHTML=count;
+                        }
                     }
                 }
             }
@@ -150,19 +154,40 @@ function saveTaskChanges(){
 
 function deleteTask(){
     let task=document.getElementById('idInput').value;
+    let tasks=document.getElementsByClassName('cl'+task);
 
     let xhr = new XMLHttpRequest();
             xhr.onload=function(){
                 if(xhr.status==200){
                     if(xhr.responseText){
-                        document.getElementById(task).remove();
-                        let count=document.getElementById('todayCount').innerHTML;
-                        count--;
-                        document.getElementById('todayCount').innerHTML=count;
+                        for(let i=0; i<tasks.length; i++){
+                            tasks[i].style.display="none";
+                        }        
 
-                        let countTask=document.getElementById('countTask').innerHTML;
-                        countTask--;
-                        document.getElementById('countTask').innerHTML=countTask;
+                        let container=document.getElementById('containerId').value;
+                        container=container.substring(0, container.length-1);
+                        container=container.split(";");     
+                        countName=container[0];
+
+                        if(countName=="tasksCont"){
+                            let count=document.getElementById('todayCount').innerHTML;
+                            count--;
+                            document.getElementById('todayCount').innerHTML=count;
+
+                            let countTask=document.getElementsByClassName('count')[1].innerHTML;
+                            countTask--;
+                            document.getElementsByClassName('count')[1].innerHTML=countTask;
+                        }else{
+                            let count=document.getElementById('upcomingCount').innerHTML;
+                            count--;
+                            document.getElementById('upcomingCount').innerHTML=count;
+
+                            let countTask=document.getElementsByClassName('count')[0].innerHTML;
+                            countTask--;
+                            document.getElementsByClassName('count')[0].innerHTML=countTask;
+                        }
+
+                        
                         let countList=document.getElementById('listCount'+xhr.responseText).innerHTML;
                         countList--;
                         document.getElementById('listCount'+xhr.responseText).innerHTML=countList;
@@ -180,9 +205,20 @@ function displaySubtaskForm(){
     document.getElementById('nameS').focus();
 }
 
-function displayTaskForm(){
+function displayTaskForm(destinationDiv, minDate, maxDate){
     document.getElementById('nameInputT').value='';
     document.getElementById('descriptionInputT').value='';
     document.getElementById('transparent-bgT').style.display='flex';
+    document.getElementById('containerId').value=destinationDiv;
+    document.getElementById('dateInputT').setAttribute('min', minDate);
+    document.getElementById('dateInputT').setAttribute('max', maxDate);
+    document.getElementById('dateInputT').value=minDate;
     document.getElementById('nameInputT').focus();
+}
+function changeDestCount(destValue){
+    if(destValue=='todayOpt'){
+        document.getElementById('containerId').value='tasksCont;';
+    }else{
+        document.getElementById('containerId').value='tomorrowTasksCont;';
+    }
 }

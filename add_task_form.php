@@ -86,11 +86,12 @@
             border: 1px solid #e1e1e1;
             margin-left: 20px;
             margin-bottom: 5px;
-            width: 100px;
+            width: 120px;
 
         }
         .metaInfoDivT1{
             margin-left: 55px;
+            width: 100px;
         }
         .metaInfo{
             padding: 4px 7px;
@@ -142,8 +143,9 @@
                 </div>
                     <div id="dateT">
                         <br><label class="text">Due date</label>
-                        <div class="metaInfoDivT metaInfoDivT2"><input id="dateInputT" type="date" class="metaInfo" value="<?php echo date("Y-m-d") ?>" readonly></div>
+                        <div class="metaInfoDivT metaInfoDivT2"><input id="dateInputT" type="date" class="metaInfo"></div>
                     </div>
+                    <input type="hidden" id="containerId" value="tasksCont;">
                 <button type="button" id="addButtonT" onclick="addTask()"><i class="fa-sharp fa-solid fa-plus"></i>&ensp;Add</button>
             </form>
         </div>
@@ -159,14 +161,18 @@
             let description=document.getElementById('descriptionInputT').value;
             let list=document.getElementById('listInputT').value;
             let date=document.getElementById('dateInputT').value;
+            let container=document.getElementById('containerId').value;
+            container=container.substring(0, container.length-1);
+            container=container.split(";");
 
             let xhr = new XMLHttpRequest();
             xhr.onload=function(){
                 if(xhr.status==200){
                     let task=JSON.parse(xhr.responseText);
-                    let index=document.getElementsByClassName('Subtask').length;
-                    document.getElementById('tasksCont').innerHTML+=`
-                        <div class='tasks' id='${task.id_task}' onclick=\"controlTasksMenu('open', this.id)\">
+                    // let index=document.getElementsByClassName('Subtask').length;
+                    for(let i=0; i<container.length; i++){
+                    document.getElementById(container[i]).innerHTML+=`
+                        <div class='tasks cl${task.id_task}' id='${task.id_task}' onclick=\"controlTasksMenu('open', this.id)\">
                             <div class='tasks2'>
                                 <span class='text noMtext tasksName' id='taskName${task.id_task}'>${task.name}</span>
                                 <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
@@ -178,7 +184,7 @@
                                     <span class='subInfo' id='taskDate${task.id_task}'>${task.date}</span>
                                 </div>
                                 <div class='infoDiv'>
-                                    <span class='subInfo count fix' id='subCount${task.id_task}'>0</span>
+                                    <span class='subInfo count fix subCounts${task.id_task}' id='subCount${task.id_task}'>0</span>
                                     <span class='subInfo'>Subtasks</span>
                                 </div>
                                 <div class='infoDiv LinfoDiv'>
@@ -187,9 +193,25 @@
                                 </div>
                         </div>
                         `;
-                let count=document.getElementById('todayCount').innerHTML;
-                count++;
-                document.getElementById('todayCount').innerHTML=count;
+                    }
+                countName=container[0];
+                if(countName=="tasksCont"){
+                    let count=document.getElementById('todayCount').innerHTML;
+                    count++;
+                    document.getElementById('todayCount').innerHTML=count;
+
+                    let countTask=document.getElementsByClassName('count')[1].innerHTML;
+                    countTask++;
+                    document.getElementsByClassName('count')[1].innerHTML=countTask;
+                }else{
+                    let count=document.getElementById('upcomingCount').innerHTML;
+                    count++;
+                    document.getElementById('upcomingCount').innerHTML=count;
+
+                    let countTask=document.getElementsByClassName('count')[0].innerHTML;
+                    countTask++;
+                    document.getElementsByClassName('count')[0].innerHTML=countTask;
+                }
 
                 let countList=document.getElementById('listCount'+task.id_list).innerHTML;
                 countList++;

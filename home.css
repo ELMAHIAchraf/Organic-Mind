@@ -205,6 +205,19 @@ hr{
     border-radius: 6px;
     margin-left: 20px;
 }
+#upcomingCount{
+    font-weight: bold;
+    font-size: 28px;
+    color: #333333;
+    border: 1px solid #ededed;
+    width: 20px;
+    height: 20px;
+    padding: 4px 15px;
+    text-align: center;
+    border-radius: 6px;
+    margin-left: 20px;
+}
+
 #addTask{
     color: #333333;
     padding: 18px 0px;
@@ -483,3 +496,11 @@ button{
     overflow: auto;
     max-height: 490px;
 }
+#tomorrowTasksCont, #thisWeekTasksCont{
+    height: 200px;
+    overflow: auto;
+}
+.upcomingDivs{
+    overflow: hidden;
+}
+

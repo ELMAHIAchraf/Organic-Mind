@@ -100,9 +100,12 @@
                                         <i class="fa-solid fa-trash-can subtaskTrash" onclick="deleteSubtask(this.parentNode.id)" onmouseover="shakeTrash(${index})" onmouseleave="stopShaking(${index})"></i>
                                     </div>
                             `;
-                        let count=document.getElementById(`subCount${subtask.id_task}`).innerHTML;
+                        let className=document.getElementsByClassName(`subCounts${subtask.id_task}`);
+                        let count=className[0].innerHTML;
                         count++;
-                        document.getElementById(`subCount${subtask.id_task}`).innerHTML=count;
+                        for(let i=0; i<className.length; i++){
+                            className[i].innerHTML=count;
+                        }
                     }
                 }
             }
