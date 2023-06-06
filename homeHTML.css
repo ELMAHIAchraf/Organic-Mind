@@ -144,9 +144,6 @@ input[type="search"]::-webkit-search-cancel-button{
     color: #545454;
     margin-left: 5px;
 }
-#todayText{
-    font-weight: 600;
-}
 .tasksName{
     font-size: 16px;
 }
@@ -195,9 +192,9 @@ hr{
     margin-right: 15px;
 }
 #today{
-    display: block;
+    display: none;
 }
-.todayTitle{
+#todayTitle{
     display: inline-block;
 }
 #todayCount{
@@ -526,8 +523,9 @@ button{
 
 
 
+
 #calendar{
-    display: none;
+    display: block;
     overflow: hidden;
 }
 #datesCont{
@@ -562,7 +560,6 @@ button{
 .carrets{
     font-size: 20px;
     color: #8a8a8a;
-    cursor: pointer;
 }
 #carretCo{
     width: 45px;
@@ -578,12 +575,7 @@ button{
     margin-top: 15px;
     width: 1185px;
     overflow: auto;
-}
-.dateContainer{
-    height: 580px;
-
-    margin-top: 15px;
-    overflow: auto;
+    display: none;
 }
 .tableRows{
     height: 120px;
@@ -593,7 +585,6 @@ button{
 }
 .gapCol{
     width: 5%;
-    position: relative;
 }
 .firstRow{
     width: 10%;
@@ -621,6 +612,7 @@ button{
     width: 80%;
 }
 .taskDivTab{
+    background-color: #9fd7ff;
     height: 100%;
     width: 98%;
     border-radius: 10px;
@@ -634,10 +626,18 @@ button{
     padding-top: 15px;
 }
 
+.tableColumn{
+    border-left: 1px solid black;
+}
+.dateContainer{
+    height: 580px;
+    margin-top: 15px;
+    overflow: auto;
+}
 #weekContainer{
     display: none;
     grid-template-columns: 8% 6% repeat(7, 12%);
-    grid-template-rows: 50px repeat(17, 150px);
+    grid-template-rows: 50px repeat(18, 150px);
 }
 .clockCont{
     border-top: 2px solid #d7d7d7;
@@ -648,7 +648,6 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 .emptyDivs{
     grid-row: 1;
@@ -662,7 +661,6 @@ button{
     align-items: start;
     justify-content: start;
     padding-left: 10px;
-    border-radius: 10px 10px 0 0;
 }
 .daysContentCont{
     grid-row: 2/20;
@@ -690,51 +688,11 @@ button{
 
 
 
-#monthContainer{
-    display: none;
-    grid-template-columns: repeat(7, 141px);
-    grid-template-rows: 30px repeat(5, 107px);
-    grid-gap: 3px;
-}
-.daysHeaders{
-    padding-left: 10px;
-    padding-top: 5px;
-    font-weight: bold;
-    color: #444444;
-    font-size: 13px;
-}
-.dayNum{
-    font-weight: bold;
-    color: #444444;
-    font-size: 15px;
-}
-.daysDivs{
-    display: grid;
-    grid-gap: 3.3px;
-    padding-left: 10px;
-    grid-template-rows: repeat(4, 24px);
-}
-.tasksRows{
-    background-color: red;
-    border-radius: 8px;
-}
 
-#lineCont{
-    display: flex;
-    align-items: center;
-    width: 1045px;
-    position: absolute;
-}
-#circle{
-    background-color: #444444;
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-}
-#line{
-    width: 100%;
-    height: 2px;
-    background-color: #444444;
-}
+
+
+
+
+
 
 

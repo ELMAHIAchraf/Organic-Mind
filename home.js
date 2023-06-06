@@ -98,6 +98,11 @@ let oldclicked='today';
 function showMain(div){
     document.getElementById(oldclicked+"Opt").style.backgroundColor='#F1F1F1';
 
+    document.getElementById(oldclicked+"Text").style.fontWeight='500';
+    document.getElementById(div+"Text").style.fontWeight='600';
+
+
+
     document.getElementById(div+"Opt").style.backgroundColor='#e4e4e4';
     
     if(div=="upcoming" || div=="today"){
@@ -234,4 +239,37 @@ function changeDestCount(destValue){
     }else{
         document.getElementById('containerId').value='tomorrowTasksCont;';
     }
+}
+function slideLeft(){
+    for(let i=0; i<time.length; i++){
+        if(document.getElementsByClassName('dates')[i].style.backgroundColor=='rgb(221, 221, 221)'){
+            alreadyclicked=document.getElementsByClassName('dates')[i].id;
+        }
+    }
+
+    let index=time.indexOf(alreadyclicked);
+    if(index==0){
+        index=time.length-1;
+    }else{
+        index--;
+    }
+    let id=document.getElementsByClassName('dates')[index].id;
+    switchDate(id);
+}
+            
+function slideRight(){
+    for(let i=0; i<time.length; i++){
+        if(document.getElementsByClassName('dates')[i].style.backgroundColor=='rgb(221, 221, 221)'){
+            alreadyclicked=document.getElementsByClassName('dates')[i].id;
+        }
+    }
+
+    let index=time.indexOf(alreadyclicked);
+    if(index==time.length-1){
+        index=0;
+    }else{
+        index++;
+    }
+    let id=document.getElementsByClassName('dates')[index].id;
+    switchDate(id);
 }

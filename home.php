@@ -19,6 +19,7 @@
 </head>
 <body>
     <?php 
+        date_default_timezone_set('Africa/Casablanca');
         include('connexion.php');
         include('add_sticky_form.php');
         include('add_list_form.php');

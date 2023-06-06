@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="home.js" defer></script>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="homeHTML.css">
     <style>
         .subtaskTrash{
             float: right;
@@ -24,6 +24,10 @@
             display: none;
             opacity: 0;
         }
+        #today{
+            display: none;
+        }
+  
     </style>
     <title>Home</title>
 </head>
@@ -295,8 +299,229 @@
                 </div>
         </div>  
     </div>
+    <!--HEEEEERE-->
 
-    <div id="calendar" class="mainDiv">calendar</div>
+
+
+
+
+
+
+
+
+    <script>
+        let alreadyclicked="day";
+        let time=['day', 'week', 'month'];
+        function switchDate(id){
+            document.getElementById(alreadyclicked).style.backgroundColor='white';
+            document.getElementById(id).style.backgroundColor='#dddddd';
+
+            document.getElementById(alreadyclicked+"Container").style.display='none';
+            document.getElementById(id+"Container").style.display='block';
+            alreadyclicked=id;
+        }
+    </script>
+    <div id="calendar" class="mainDiv">
+            <h1 id="todayTitle">16 February 2022</h1>
+            <div id="dateDivCont">
+                <div id="datesCont">
+                    <div class="dates" id="day" onclick="switchDate(this.id)">DAY</div>
+                    <div class="dates" id="week"  onclick="switchDate(this.id)">Week</div>
+                    <div class="dates" id="month"  onclick="switchDate(this.id)">Month</div>
+                </div>
+                <div id="arrowCont">
+                    <div id="carretCo">
+                        <i class="fa-regular fa-angle-left carrets"></i>
+                        <i class="fa-regular fa-angle-left fa-rotate-180 carrets"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dayContainer" class="dateContainer">
+                <table width="100%" height="100%">
+                    <tr class="tableRows" id="headerRow">
+                        <td class="firstRow"></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow">Wednesday</td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">08:00 AM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow">
+                            <div class="taskDivTab">
+                                <p class="taskNameTab">Session 1: Marketing Sprint</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">09:00 AM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">10:00 AM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow">
+                            <div class="taskDivTab" style="background-color: #ff7070;">
+                                <p class="taskNameTab">Renew driver's licence</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">11:00 AM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">12:00 AM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">01:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">02:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">03:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">04:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">05:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">06:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">07:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">08:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">09:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">10:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">11:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    <tr class="tableRows">
+                        <td class="firstRow"><p class="timePar">12:00 PM</p></td>
+                        <td class="gapCol"></td>
+                        <td class="lastRow"></td>
+                    </tr>
+                    
+                </table>
+            </div>
+            
+            
+            <div id="weekContainer" class="dateContainer">
+
+                <div class="clockCont">08:00 AM</div>
+                <div class="clockCont">09:00 AM</div>
+                <div class="clockCont">10:00 AM</div>
+                <div class="clockCont">11:00 AM</div>
+                <div class="clockCont">12:00 AM</div>
+                <div class="clockCont">01:00 PM</div>
+                <div class="clockCont">01:00 PM</div>
+                <div class="clockCont">02:00 PM</div>
+                <div class="clockCont">03:00 PM</div>
+                <div class="clockCont">04:00 PM</div>
+                <div class="clockCont">05:00 PM</div>
+                <div class="clockCont">06:00 PM</div>
+                <div class="clockCont">07:00 PM</div>
+                <div class="clockCont">08:00 PM</div>
+                <div class="clockCont">09:00 PM</div>
+                <div class="clockCont">10:00 PM</div>
+                <div class="clockCont">11:00 PM</div>
+                <div class="clockCont">12:00 PM</div>
+
+                <div class="emptyDivs"></div>
+                <div class="emptyDivs"></div>
+                <div class="daysCont"><p>MON</p></div>
+                <div class="daysCont"><p>TUE</p></div>
+                <div class="daysCont"><p>WED</p></div>
+                <div class="daysCont"><p>THU</p></div>
+                <div class="daysCont"><p>FRI</p></div>
+                <div class="daysCont"><p>SAT</p></div>
+                <div class="daysCont"><p>SUN</p></div>
+
+                <div class="daysContentCont" style="grid-column: 3;">
+                    <div class="daysTasksCont"><p class="daysTaskpar">Session 1: Marketing Sprint</p></div>
+                </div>
+                <div class="daysContentCont" style="grid-column: 4;">
+                    <div class="daysTasksCont"><p class="daysTaskpar">Session 1: Marketing Sprint</p></div>
+                </div>
+                <div class="daysContentCont" style="grid-column: 5;">
+                
+                </div>
+                <div class="daysContentCont" style="grid-column: 6;">
+                
+                </div>
+                <div class="daysContentCont" style="grid-column: 7;">
+                
+                </div>
+                <div class="daysContentCont" style="grid-column: 8;">
+                
+                </div>
+                <div class="daysContentCont" style="grid-column: 9;">
+                
+                </div>     
+            </div>
+
+
+
+
+
+
+
+            
+
+            
+    
+    
+    
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div id="stickyWall" class="mainDiv">
         <h1 class="todayTitle">Sticky Wall</h1>

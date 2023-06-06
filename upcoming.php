@@ -31,7 +31,7 @@
     <div id="tomorrowTasksCont">
         <?php
             $date=date("Y-m-d", time()+24*3600);
-             $sql8="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date='$date'";
+             $sql8="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)='$date'";
              $query8=mysqli_query($conn, $sql8);
              while($tab8=mysqli_fetch_assoc($query8)){
                  $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab8['id_task']}";
@@ -85,7 +85,7 @@
         <?php
                 $date=date("Y-m-d", time()+24*3600);
                 $LastDayOfTheWeek=date("Y-m-d", strtotime("next Sunday"));
-                $sql9="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND (due_date BETWEEN '$date' AND '$LastDayOfTheWeek')";
+                $sql9="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND (DATE(due_date) BETWEEN '$date' AND '$LastDayOfTheWeek')";
                 $query9=mysqli_query($conn, $sql9);
                 while($tab9=mysqli_fetch_assoc($query9)){
                     $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab9['id_task']}";
@@ -139,7 +139,7 @@
     <div id="laterTasksCont">
         <?php
                 $LastDayOfTheWeek=date("Y-m-d", strtotime("tomorrow"));
-             $sql8="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date>='$LastDayOfTheWeek'";
+             $sql8="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)>='$LastDayOfTheWeek'";
              $query8=mysqli_query($conn, $sql8);
              while($tab8=mysqli_fetch_assoc($query8)){
                  $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab8['id_task']}";

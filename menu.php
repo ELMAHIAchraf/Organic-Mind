@@ -29,12 +29,12 @@
             <div class="container" id="upcomingOpt" onclick="showMain('upcoming'), changeDestCount(this.id), controlTasksMenu('close')">
                 <div class="sub-container">
                     <i class="fa-solid fa-angles-right icones"></i>
-                    <span class="text">Upcoming</span>
+                    <span class="text" id="upcomingText">Upcoming</span>
                 </div>
                 <span  class="count" id="upcomingCountTask">
                 <?php
                     $date=date("Y-m-d");
-                    $sql7="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date>'$date'";
+                    $sql7="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)>'$date'";
                     $query7=mysqli_query($conn, $sql7);
                     $tab7=mysqli_fetch_assoc($query7);
                     echo $tab7['taskCount'];
@@ -45,12 +45,12 @@
             <div class="container" id="todayOpt" onclick="showMain('today'), changeDestCount(this.id),controlTasksMenu('close')">
                 <div class="sub-container">
                     <i class="fa-solid fa-list-check icones"></i>
-                    <span class="text">Today</span>
+                    <span class="text" id="todayText">Today</span>
                 </div>
                 <span  class="count" id="todayCountTask">
                     <?php
                         $date=date("Y-m-d");
-                        $sql5="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date='$date'";
+                        $sql5="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)='$date'";
                         $query5=mysqli_query($conn, $sql5);
                         $tab5=mysqli_fetch_assoc($query5);
                         echo $tab5['taskCount'];
@@ -61,14 +61,14 @@
             <div class="container" id="calendarOpt" onclick="showMain('calendar'), controlTasksMenu('close')">
                 <div class="sub-container">
                     <i class="fa-solid fa-calendar-days icones"></i>
-                    <span class="text">Calendar</span>
+                    <span class="text" id="calendarText">Calendar</span>
                 </div>
             </div>
 
             <div class="container" id="stickyWallOpt" onclick="showMain('stickyWall'), controlTasksMenu('close')">
                 <div class="sub-container">
                     <i class="fa-solid fa-note-sticky icones"></i>
-                    <span class="text">Sticky Wall</span>
+                    <span class="text" id="stickyWallText">Sticky Wall</span>
                 </div>
             </div>
         </div>

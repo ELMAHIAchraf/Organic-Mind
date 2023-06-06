@@ -13,7 +13,7 @@
         <span  id="todayCount">
             <?php
                 $current_date=date('Y-m-d');
-                 $sql5="SELECT count(id_task) AS tasksCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date='$current_date'";
+                 $sql5="SELECT count(id_task) AS tasksCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)='$current_date'";
                  $query5=mysqli_query($conn, $sql5);
                  $tab5=mysqli_fetch_assoc($query5);
                  if(!empty($tab5)){
@@ -32,7 +32,7 @@
         </div>
         <div id="tasksCont">
         <?php
-            $sql3="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND due_date='$current_date'";
+            $sql3="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)='$current_date'";
             $query3=mysqli_query($conn, $sql3);
             while($tab3=mysqli_fetch_assoc($query3)){
                 $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab3['id_task']}";
