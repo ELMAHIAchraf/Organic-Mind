@@ -9,9 +9,9 @@
                 $query=mysqli_query($conn, $sql);
 
                 if(mysqli_num_rows($query)>0){
-                    $sql="SELECT * FROM tasks NATURAL JOIN subtasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user=1";
+                    $sql="SELECT id_task, name_task, description_task, name_list, DATE(due_date) as due_date, TIME_FORMAT(due_date, '%H:%i:%s') as due_time FROM tasks NATURAL JOIN subtasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user=1";
                 }else{
-                    $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user=1";
+                    $sql="SELECT id_task, name_task, description_task, name_list, DATE(due_date) as due_date, TIME_FORMAT(due_date, '%H:%i:%s') as due_time FROM tasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user=1";
                 }
                 $wihichSql=$sql;
                 $query1=mysqli_query($conn, $sql);
@@ -19,7 +19,7 @@
                 $data=array();
                 $tab1=mysqli_fetch_assoc($query1);
                 $date=date_create("{$tab1['due_date']}");
-                        $date=date_format($date,"Y-m-d");
+                $date=date_format($date,"Y-m-d");
                         
                         $data=array(
                                     'id_task'=>$tab1['id_task'],
@@ -27,6 +27,7 @@
                                     'description_task'=>$tab1['description_task'], 
                                     'name_list'=>$tab1['name_list'],
                                     'due_date'=>$date,
+                                    'due_time'=>$tab1['due_time']
                                     );
 
                 if($wihichSql=="SELECT * FROM tasks NATURAL JOIN subtasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user=1"){

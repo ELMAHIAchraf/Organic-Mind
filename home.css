@@ -196,11 +196,16 @@ hr{
 }
 #today{
     display: block;
+    overflow: hidden;
+}
+#searchMain{
+    display: none;
+
 }
 .todayTitle{
     display: inline-block;
 }
-#todayCount{
+#todayCount, #searchCount{
     font-weight: bold;
     font-size: 28px;
     color: #333333;
@@ -326,11 +331,12 @@ textarea{
     margin-top: 15px;
 }
 #list{
+    margin-top: -10px;
     margin-left: 15px;
 }
 #date{
     margin-left: 15px;
-    margin-top: -10px;
+    margin-top: -15px;
 }
 .metaInfoDiv{
     display: inline-block;
@@ -353,7 +359,7 @@ textarea{
     cursor: pointer;
 }
 #subtaskDiv{
-    margin-top: 25px;
+    margin-top: 10px;
 }
 #SubtaskText{
     font-size: 21px;
@@ -400,7 +406,7 @@ button{
     cursor: pointer;
 }
 #buttons{
-    margin-top: 40px;
+    margin-top: 15px;
     margin-left: 35px;
 }
 #delButtDiv{
@@ -653,6 +659,10 @@ button{
 .emptyDivs{
     grid-row: 1;
 }
+#time{
+    margin-left: 83px;
+    margin-top: -15px;
+}
 .daysCont{
     grid-row: 1;
     color: #444444;
@@ -686,13 +696,16 @@ button{
     font-weight: 500;
     padding: 10px;
 }
-
+#tasksCont{
+    height: 550px;
+    overflow: auto;
+}
 
 
 
 #monthContainer{
     display: none;
-    grid-template-columns: repeat(7, 141px);
+    grid-template-columns: repeat(7, 155px);
     grid-template-rows: 30px repeat(5, 107px);
     grid-gap: 3px;
 }
@@ -715,7 +728,7 @@ button{
     grid-template-rows: repeat(4, 24px);
 }
 .tasksRows{
-    background-color: red;
+    background-color: #b3dfff;
     border-radius: 8px;
 }
 

@@ -5,12 +5,14 @@
            isset($_POST['description']) and !empty($_POST['description'])&&
            isset($_POST['list']) and !empty($_POST['list'])&&
            isset($_POST['id_task']) and !empty($_POST['id_task'])&&
-           isset($_POST['date']) and !empty($_POST['date'])){
+           isset($_POST['date']) and !empty($_POST['date']) &&
+           isset($_POST['time']) and !empty($_POST['time'])){
 
                 $name=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['name'])));
                 $description=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['description'])));
                 $list=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['list'])));
                 $date=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['date'])));
+                $time=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['time'])));
                 $id_task=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['id_task'])));
 
                 $dateS=date_create($date);
@@ -22,10 +24,20 @@
                 $sql3="SELECT id_list FROM tasks WHERE id_task=$id_task";
                 $query3=mysqli_query($conn, $sql3);
                 $tab3=mysqli_fetch_row($query3);
+                
+                $sql4="SELECT DATE(due_date) FROM tasks WHERE id_task=$id_task";
+                $query4=mysqli_query($conn, $sql4);
+                $tab4=mysqli_fetch_row($query4);
+                if(strtotime($tab4[0])==strtotime($date)){
+                    $remove=0;
+                }else{
+                    $remove=1;
+                }
+                
 
-                $sql="UPDATE tasks SET id_list='$list',name_task='$name', description_task='$description',due_date='$date' WHERE id_task=$id_task";
+                $sql="UPDATE tasks SET id_list='$list',name_task='$name', description_task='$description',due_date='$date $time' WHERE id_task=$id_task";
                 if(mysqli_query($conn, $sql)){
-                    $tab=array("id_task"=>$id_task,"id_list"=>$list,"oldId_list"=>$tab3[0], "name_list"=>$tab2['name_list'],"color_list"=>$tab2['color_list'] , "name_task"=>$name, "description_task"=>$description, "due_date"=>$date, "due_dateS"=>$dateS);
+                    $tab=array("id_task"=>$id_task,"id_list"=>$list,"remove"=>$remove, "oldId_list"=>$tab3[0], "name_list"=>$tab2['name_list'],"color_list"=>$tab2['color_list'] , "name_task"=>$name, "description_task"=>$description, "due_date"=>$date, "due_dateS"=>$dateS, "time"=>$time);
                     echo json_encode($tab);
                 }else{
                     echo "Error:".mysqli_error($conn);

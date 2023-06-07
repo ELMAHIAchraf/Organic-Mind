@@ -30,6 +30,7 @@
         include("upcoming.php");
         include("calendar.php");
         include("sticky_wall.php");
+        include('search.php');
         include("task_menu.php");
     ?>           
 </body>

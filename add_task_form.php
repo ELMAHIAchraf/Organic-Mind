@@ -108,11 +108,19 @@
             color: #545454;
         }   
         #listT{
-            margin-left: -8px;
+            margin-left: -13px;
         }
         #dateT{
             margin-left: -8px;
-        }   
+            display: inline-block;
+        } 
+        #timeT{
+            display: inline-block;
+            margin-left: -13px;
+        }
+        #dateTime{
+            margin-top: -10px;
+        }
 
     </style>
 </head>
@@ -142,10 +150,15 @@
                         </select>
                     </div>
                 </div>
+                <div id="dateTime">
                     <div id="dateT">
                         <br><label class="text">Due date</label>
                         <div class="metaInfoDivT metaInfoDivT2"><input id="dateInputT" type="date" class="metaInfo"></div>
                     </div>
+                    <div id="timeT">
+                        <div class="metaInfoDivT metaInfoDivT2"><input id="timeInputT" value="<?php echo date("h:00:00") ?>" type="time" class="metaInfo"></div>
+                    </div>
+                </div>
                     <input type="hidden" id="containerId" value="tasksCont;">
                 <button type="button" id="addButtonT" onclick="addTask()"><i class="fa-sharp fa-solid fa-plus"></i>&ensp;Add</button>
             </form>
@@ -162,6 +175,7 @@
             let description=document.getElementById('descriptionInputT').value;
             let list=document.getElementById('listInputT').value;
             let date=document.getElementById('dateInputT').value;
+            let time=document.getElementById('timeInputT').value;
             let container=document.getElementById('containerId').value;
             container=container.substring(0, container.length-1);
             container=container.split(";");
@@ -221,7 +235,7 @@
             }
             xhr.open('POST', 'add_task.php', true)
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send('name='+name+'&description='+description+'&list='+list+'&date='+date);
+            xhr.send('name='+name+'&description='+description+'&list='+list+'&date='+date+'&time='+time);
             document.getElementById('transparent-bgT').style.display='none';
         }
     </script>

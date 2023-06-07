@@ -25,6 +25,8 @@ function controlTasksMenu(action, id_task){
                         /* list wont appear*/
                         document.getElementById(task.name_list).setAttribute('selected', 'selected');
                         document.getElementById('dateInput').value=task.due_date;
+                        document.getElementById('timeInput').value=task.due_time;
+
 
                         if(task.subtasks){
                             let subtasks='';
@@ -119,6 +121,9 @@ function showMain(div){
     document.getElementById(oldclicked).style.display='none';
     document.getElementById(div).style.display='inline-block';
     oldclicked=div;
+
+    document.getElementById("searchMain").style.display='none';
+
 }
 
 function displayStickyForm(){
@@ -138,6 +143,7 @@ function saveTaskChanges(){
     let description=document.getElementById('descriptionInput').value;
     let list=document.getElementById('listInput').value;
     let date=document.getElementById('dateInput').value;
+    let time=document.getElementById('timeInput').value;
     let task=document.getElementById('idInput').value;
 
     let xhr = new XMLHttpRequest();
@@ -145,16 +151,22 @@ function saveTaskChanges(){
                 if(xhr.status==200){
                     if(xhr.responseText){
                         let task=JSON.parse(xhr.responseText);
-                        document.getElementById('nameInput').value=task.name_task;
-                        document.getElementById('descriptionInput').value=task.description_task;
-                        document.getElementById(task.name_list).setAttribute('selected', 'selected');
-                        document.getElementById('dateInput').value=task.due_date;
-                        document.getElementById('idInput').value=task.id_task;
-
-                        document.getElementById('taskName'+task.id_task).innerHTML=task.name_task;
-                        document.getElementById('taskDate'+task.id_task).innerHTML=task.due_dateS;
-                        document.getElementById('taskListColor'+task.id_task).style.backgroundColor=task.color_list;
-                        document.getElementById('taskListName'+task.id_task).innerHTML=task.name_list;
+                        if(task.remove==0){
+                            document.getElementById('nameInput').value=task.name_task;
+                            document.getElementById('descriptionInput').value=task.description_task;
+                            document.getElementById(task.name_list).setAttribute('selected', 'selected');
+                            document.getElementById('dateInput').value=task.due_date;
+                            document.getElementById('timeInput').value=task.time;
+                            document.getElementById('idInput').value=task.id_task;
+                            document.getElementById('taskName'+task.id_task).innerHTML=task.name_task;
+                            document.getElementById('taskDate'+task.id_task).innerHTML=task.due_dateS;
+                            document.getElementById('taskListColor'+task.id_task).style.backgroundColor=task.color_list;
+                            document.getElementById('taskListName'+task.id_task).innerHTML=task.name_list;
+                        }else{
+                            let id=document.getElementById("idInput").value;
+                            document.getElementById(id).style.display="none";
+                            document.getElementById("Task").style.display="none";
+                        }
 
                         let oldList=document.getElementById('listCount'+task.oldId_list).innerHTML;
                         oldList--;
@@ -167,7 +179,7 @@ function saveTaskChanges(){
             }
             xhr.open('POST', 'modify_task_data.php', true)
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send('id_task='+task+'&name='+name+'&description='+description+'&list='+list+'&date='+date);
+            xhr.send('id_task='+task+'&name='+name+'&description='+description+'&list='+list+'&date='+date+'&time='+time);
 }
 
 function deleteTask(){
@@ -273,3 +285,20 @@ function slideRight(){
     let id=document.getElementsByClassName('dates')[index].id;
     switchDate(id);
 }
+function search(){
+    if(event.key=='Enter'){
+       let divs=['today', 'upcoming', 'calendar', 'stickyWall'];
+       for(let i=0; i<divs.length; i++){
+        document.getElementById(divs[i]).style.display='none';
+        document.getElementById(divs[i]+"Opt").style.backgroundColor='#F1F1F1';
+        document.getElementById(divs[i]+"Text").style.fontWeight='500';
+       } 
+       document.getElementById("upcomingCountTask").style.backgroundColor='#e4e4e4';
+       document.getElementById("todayCountTask").style.backgroundColor='#e4e4e4';
+
+       document.getElementById("searchMain").style.display='block';
+       seachTasks();
+    }
+}
+
+

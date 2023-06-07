@@ -22,7 +22,33 @@
                     </div>
                 </div>
             </div>
-
+            <script>
+                function updateTodayCalendar(){
+                    let xhr = new XMLHttpRequest();
+                    xhr.onload=function(){
+                        if(xhr.status==200){
+                            if(xhr.responseText){
+                                let data=JSON.parse(xhr.responseText);
+                                // document.getElementById('searchCont').innerHTML="";
+                                let j=0;
+                                for(let i=8; i <= 24;i++){
+                                    if(data[j]!=0){
+                                        document.getElementById(`lastRow${i}`).innerHTML=`
+                                        <div class='taskDivTab' style='background-color: ${data[j].color_list}'>
+                                            <p class='taskNameTab'>${data[j].name_task}</p>
+                                        </div>
+                                        `;
+                                    }
+                                j++;
+                                }
+                            }
+                        }
+                    }
+                    xhr.open('POST', 'update_today_calendar.php', true)
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.send();
+                }
+            </script>
             <div id="dayContainer" class="dateContainer">
                 <table width="100%" height="100%">
                     <tr class="tableRows" id="headerRow">
@@ -38,7 +64,7 @@
                             if($i==24){
                                 $time="Midnight";
                             }
-                            $now=date('h:00 A', strtotime(date("h:m:i")));
+                            $now=date('h:00 A', strtotime(date("h:m:i")));           
                             if($now==$time){
                                 $line="
                                     <div id='lineCont'>
@@ -58,26 +84,45 @@
                                     </td>
                                 </tr>
                             ";
-                            $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE due_date='$date $i:00:00'";
-                            $query=mysqli_query($conn, $sql);
-                            $tab=mysqli_fetch_assoc($query);
-                            if(!empty($tab)){
-                                echo "<script>
-                                document.getElementById('lastRow$i').innerHTML=`
-                                    <div class='taskDivTab' style='background-color: {$tab['color_list']};'>
-                                        <p class='taskNameTab'>{$tab['name_task']}</p>
-                                    </div>`;
-                                </script>";
-                            }
+                            
                         }
                     ?>
 
-                    
                 </table>
             </div>
 
 
-
+            <script>
+                function updateWeekCalendar(){
+                    let xhr = new XMLHttpRequest();
+                    xhr.onload=function(){
+                        if(xhr.status==200){
+                            if(xhr.responseText){
+                                let data=JSON.parse(xhr.responseText);
+                                // document.getElementById('searchCont').innerHTML="";
+                                for(let i=3; i <= 9;i++){
+                                    for (let k=8; k <= 24; k++){
+                                        document.getElementById(`daysContentCont${i}`).innerHTML=""; 
+                                    }
+                                }
+                                
+                                let j=0;
+                                for(let i=3; i <= 9;i++){
+                                    for (let k=8; k <= 24; k++){
+                                        document.getElementById(`daysContentCont${i}`).innerHTML+=`
+                                        <div class='daysTasksCont' style='background-color:${data[j].color_list};'><p class='daysTaskpar'>${data[j].name_task}</p></div>
+                                        `;
+                                        j++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    xhr.open('POST', 'update_week_calendar.php', true)
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.send();
+                }
+            </script>
             <div id="weekContainer" class="dateContainer">
                 
                 <?php
@@ -112,63 +157,66 @@
                             $c++;
                         }
                     }
-
-                    $firstDay=date("Y-m-d", strtotime("this week"));
-                    $lastDay=date("Y-m-d", strtotime("next week -1 day"));
-                    $start=date("d", strtotime($firstDay));
-                    $last=date("d", strtotime($lastDay));
-                    $dates=array();
-
-                    for($j=$start; $j<=$last; $j++){
-                        $dates[]=date('Y')."-".date('m')."-".$j;
-                    }             
-                    $x=0;           
+             
                     for($i=3; $i<=9; $i++){
-                        echo "<div class='daysContentCont' id='daysContentCont$i' style='grid-column: $i;'>";
-
-                            for ($k=8; $k <= 24; $k++){ 
-                                       
-                                $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE due_date='$dates[$x] $k:00:00'";
-                                $query=mysqli_query($conn, $sql);
-                                $tab=mysqli_fetch_assoc($query);
-                                if(!empty($tab)){
-                                    echo "<div class='daysTasksCont' style='background-color:{$tab['color_list']};'><p class='daysTaskpar'>{$tab['name_task']}</p></div>";
-                                }else{
-                                    echo "<div class='daysTasksCont' style='background-color:transparent;'></div>";
-                                }
-                            }        
-                        if(isset($chosenOne) && !empty($chosenOne)){                   
+                        echo "<div class='daysContentCont' id='daysContentCont$i' style='grid-column: $i;'></div>";
+                    }
+                    if(isset($chosenOne) && !empty($chosenOne)){                   
                             echo "<script>        
                                         document.getElementById('daysContentCont$chosenOne').style.backgroundColor='#EFEFEF';
                                         document.getElementById('daysContentCont$chosenOne').style.borderRadius='0 0 10px 10px';
                                 </script>";
-                        }
-                         echo "</div>";
-                         $x++;
                     }
+                    $firstDay=date("Y-m-d", strtotime("this week"));
+                    $lastDay=date("Y-m-d", strtotime("next week -1 day"));
+                    $start=date("d", strtotime($firstDay));
+                    $last=date("d", strtotime($lastDay));
                 ?>
                 
                 </div> 
+
+
+
+                <script>
+                function updateMonthCalendar(){
+                    let xhr = new XMLHttpRequest();
+                    xhr.onload=function(){
+                        if(xhr.status==200){
+                            if(xhr.responseText){
+                                let data=JSON.parse(xhr.responseText);
+                                for(let i=0; i<data.length; i++){
+                                    document.getElementById(`monthCont${i}`).innerHTML=`
+                                        <div class='dayNum'>${data[i][0]}</div>
+                                        <div class='tasksRows' style='background-color:${data[i][1]};'></div>
+                                        <div class='tasksRows' style='background-color:${data[i][2]};'></div>
+                                        <div class='tasksRows' style='background-color:${data[i][3]};'></div>
+                                    `;
+                                }  
+                            }
+                        }
+                    }
+                    xhr.open('POST', 'update_month_calendar.php', true)
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.send();
+                }
+            </script>
                <div id="monthContainer" class="dateContainer">
                 <?php
                     for ($i=0; $i < 7; $i++) { 
                         echo "<div class='daysHeaders'>$days[$i]</div>";
                     }
+                    for($i=0; $i<35; $i++){
+                        echo "<div class='daysDivs' id='monthCont$i'></div>";
+                    }
                 ?>
 
-                    <div class="daysDivs">
-                        <div class="dayNum">31</div>
-                        <div class="tasksRows"></div>
-                        <div class="tasksRows"></div>
-                        <div class="tasksRows"></div>
-                    </div> 
+                   
                 </div>    
             </div>
 
         <script>
             let alreadyclicked="day";
             let time=['day', 'week', 'month'];
-            
 
             function switchDate(id){
                 document.getElementById(alreadyclicked).style.backgroundColor='white';

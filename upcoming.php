@@ -27,44 +27,53 @@
             <span class="text noMtext">Add New Task</span>
         </div>
     </div>
+    <script>
+        function updateTomorrow(){
+            let xhr = new XMLHttpRequest();
+            xhr.onload=function(){
+                if(xhr.status==200){
+                    if(xhr.responseText){
+                        let data=JSON.parse(xhr.responseText);
+                        document.getElementById('tomorrowTasksCont').innerHTML="";
+                        for(let i=0; i < data.length;i++){
+                        document.getElementById('tomorrowTasksCont').innerHTML+=`
+                        <div class='tasks cl${data[i].id_task}' id='${data[i].id_task}'  onclick=\"controlTasksMenu('open', this.id)\">
+                            <div class='tasks2'>
+                                <span class='text noMtext tasksName' id='taskName${data[i].id_task}'>${data[i].name_task}</span>
+                                <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
+                            </div>
+                            
+                            <div class='infoDiv FinfoDiv'>
+                                <div class='infoDiv'></div>
+                                    <i class='fa-solid fa-calendar-xmark icones'></i>
+                                    <span class='subInfo' id='taskDate${data[i].id_task}'>${data[i].date}</span>
+                                </div>
+                                <div class='infoDiv'>
+                                    <span class='subInfo count fix subCounts${data[i].id_task}' id='subCount${data[i].id_task}'>${data[i].subtaskCount}</span>
+                                    <span class='subInfo'>Subtasks</span>
+                                </div>
+                                <div class='infoDiv LinfoDiv'>
+                                    <div class='colors' id='taskListColor${data[i].id_task}' style='background-color:${data[i].color_list};'></div>
+                                    <span class='subInfo' id='taskListName${data[i].id_task}'>${data[i].name_list}</span>
+                                </div>
+                        </div>
+                        `;
+                        }
+                        
+                    }
+                }
+            }
+            xhr.open('POST', 'update_tomorrow.php', true)
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send();
+        }
+    </script>
 
     <div id="tomorrowTasksCont">
-        <?php
-            $date=date("Y-m-d", time()+24*3600);
-             $sql8="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)='$date'";
-             $query8=mysqli_query($conn, $sql8);
-             while($tab8=mysqli_fetch_assoc($query8)){
-                 $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab8['id_task']}";
-                 $query4=mysqli_query($conn, $sql4);
-                 $tab4=mysqli_fetch_row($query4);
- 
-                 $date=date_create("{$tab8['due_date']}");
-                 $date=date_format($date,"y-m-d");
-                 echo "
-                 <div class='tasks cl{$tab8['id_task']}' id='{$tab8['id_task']}'  onclick=\"controlTasksMenu('open', this.id)\">
-                     <div class='tasks2'>
-                         <span class='text noMtext tasksName' id='taskName{$tab8['id_task']}'>{$tab8['name_task']}</span>
-                         <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
-                     </div>
-                     
-                     <div class='infoDiv FinfoDiv'>
-                         <div class='infoDiv'></div>
-                             <i class='fa-solid fa-calendar-xmark icones'></i>
-                             <span class='subInfo' id='taskDate{$tab8['id_task']}'>$date</span>
-                         </div>
-                         <div class='infoDiv'>
-                             <span class='subInfo count fix subCounts{$tab8['id_task']}' id='subCount{$tab8['id_task']}'>$tab4[0]</span>
-                             <span class='subInfo'>Subtasks</span>
-                         </div>
-                         <div class='infoDiv LinfoDiv'>
-                             <div class='colors' id='taskListColor{$tab8['id_task']}' style='background-color:{$tab8['color_list']};'></div>
-                             <span class='subInfo' id='taskListName{$tab8['id_task']}'>{$tab8['name_list']}</span>
-                     </div>
-                 </div>
-                 ";
-              }
-        ?>
+        
     </div>
+
+
     </div>
         <div class="upcomingDivs">         
         <h1 class="subTitle">This Week</h1>
@@ -80,44 +89,49 @@
             </div>
         </div>
 
-        <div id="thisWeekTasksCont" >
-        
-        <?php
-                $date=date("Y-m-d", time()+24*3600);
-                $LastDayOfTheWeek=date("Y-m-d", strtotime("next Sunday"));
-                $sql9="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND (DATE(due_date) BETWEEN '$date' AND '$LastDayOfTheWeek')";
-                $query9=mysqli_query($conn, $sql9);
-                while($tab9=mysqli_fetch_assoc($query9)){
-                    $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab9['id_task']}";
-                    $query4=mysqli_query($conn, $sql4);
-                    $tab4=mysqli_fetch_row($query4);
-    
-                    $date=date_create("{$tab9['due_date']}");
-                    $date=date_format($date,"y-m-d");
-                    echo "
-                    <div class='tasks cl{$tab9['id_task']}' id='{$tab9['id_task']}'  onclick=\"controlTasksMenu('open', this.id)\">
-                        <div class='tasks2'>
-                            <span class='text noMtext tasksName' id='taskName{$tab9['id_task']}'>{$tab9['name_task']}</span>
-                            <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
+        <script>
+        function updateWeek(){
+            let xhr = new XMLHttpRequest();
+            xhr.onload=function(){
+                if(xhr.status==200){
+                    if(xhr.responseText){
+                        let data=JSON.parse(xhr.responseText);
+                        document.getElementById('thisWeekTasksCont').innerHTML="";
+                        for(let i=0; i < data.length;i++){
+                        document.getElementById('thisWeekTasksCont').innerHTML+=`
+                        <div class='tasks cl${data[i].id_task}' id='${data[i].id_task}'  onclick=\"controlTasksMenu('open', this.id)\">
+                            <div class='tasks2'>
+                                <span class='text noMtext tasksName' id='taskName${data[i].id_task}'>${data[i].name_task}</span>
+                                <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
+                            </div>
+                            
+                            <div class='infoDiv FinfoDiv'>
+                                <div class='infoDiv'></div>
+                                    <i class='fa-solid fa-calendar-xmark icones'></i>
+                                    <span class='subInfo' id='taskDate${data[i].id_task}'>${data[i].date}</span>
+                                </div>
+                                <div class='infoDiv'>
+                                    <span class='subInfo count fix subCounts${data[i].id_task}' id='subCount${data[i].id_task}'>${data[i].subtaskCount}</span>
+                                    <span class='subInfo'>Subtasks</span>
+                                </div>
+                                <div class='infoDiv LinfoDiv'>
+                                    <div class='colors' id='taskListColor${data[i].id_task}' style='background-color:${data[i].color_list};'></div>
+                                    <span class='subInfo' id='taskListName${data[i].id_task}'>${data[i].name_list}</span>
+                                </div>
                         </div>
+                        `;
+                        }
                         
-                        <div class='infoDiv FinfoDiv'>
-                            <div class='infoDiv'></div>
-                                <i class='fa-solid fa-calendar-xmark icones'></i>
-                                <span class='subInfo' id='taskDate{$tab9['id_task']}'>$date</span>
-                            </div>
-                            <div class='infoDiv'>
-                                <span class='subInfo count fix subCounts{$tab9['id_task']}' id='subCount{$tab9['id_task']}'>$tab4[0]</span>
-                                <span class='subInfo'>Subtasks</span>
-                            </div>
-                            <div class='infoDiv LinfoDiv'>
-                                <div class='colors' id='taskListColor{$tab9['id_task']}' style='background-color:{$tab9['color_list']};'></div>
-                                <span class='subInfo' id='taskListName{$tab9['id_task']}'>{$tab9['name_list']}</span>
-                        </div>
-                    </div>
-                    ";
-                 }  
-            ?>
+                    }
+                }
+            }
+            xhr.open('POST', 'update_week.php', true)
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send();
+        }
+    </script>
+
+        <div id="thisWeekTasksCont" >
               
                       
             </div>
@@ -136,42 +150,51 @@
             <span class="text noMtext">Add New Task</span>
         </div>
     </div>
+
+    <script>
+        function updateLater(){
+            let xhr = new XMLHttpRequest();
+            xhr.onload=function(){
+                if(xhr.status==200){
+                    if(xhr.responseText){
+                        let data=JSON.parse(xhr.responseText);
+                        document.getElementById('laterTasksCont').innerHTML="";
+                        for(let i=0; i < data.length;i++){
+                        document.getElementById('laterTasksCont').innerHTML+=`
+                        <div class='tasks cl${data[i].id_task}' id='${data[i].id_task}'  onclick=\"controlTasksMenu('open', this.id)\">
+                            <div class='tasks2'>
+                                <span class='text noMtext tasksName' id='taskName${data[i].id_task}'>${data[i].name_task}</span>
+                                <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
+                            </div>
+                            
+                            <div class='infoDiv FinfoDiv'>
+                                <div class='infoDiv'></div>
+                                    <i class='fa-solid fa-calendar-xmark icones'></i>
+                                    <span class='subInfo' id='taskDate${data[i].id_task}'>${data[i].date}</span>
+                                </div>
+                                <div class='infoDiv'>
+                                    <span class='subInfo count fix subCounts${data[i].id_task}' id='subCount${data[i].id_task}'>${data[i].subtaskCount}</span>
+                                    <span class='subInfo'>Subtasks</span>
+                                </div>
+                                <div class='infoDiv LinfoDiv'>
+                                    <div class='colors' id='taskListColor${data[i].id_task}' style='background-color:${data[i].color_list};'></div>
+                                    <span class='subInfo' id='taskListName${data[i].id_task}'>${data[i].name_list}</span>
+                                </div>
+                        </div>
+                        `;
+                        }
+                        
+                    }
+                }
+            }
+            xhr.open('POST', 'update_later.php', true)
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send();
+        }
+    </script>
+   
     <div id="laterTasksCont">
-        <?php
-                $LastDayOfTheWeek=date("Y-m-d", strtotime("tomorrow"));
-             $sql8="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)>='$LastDayOfTheWeek'";
-             $query8=mysqli_query($conn, $sql8);
-             while($tab8=mysqli_fetch_assoc($query8)){
-                 $sql4="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab8['id_task']}";
-                 $query4=mysqli_query($conn, $sql4);
-                 $tab4=mysqli_fetch_row($query4);
- 
-                 $date=date_create("{$tab8['due_date']}");
-                 $date=date_format($date,"y-m-d");
-                 echo "
-                 <div class='tasks cl{$tab8['id_task']}' id='{$tab8['id_task']}'  onclick=\"controlTasksMenu('open', this.id)\">
-                     <div class='tasks2'>
-                         <span class='text noMtext tasksName' id='taskName{$tab8['id_task']}'>{$tab8['name_task']}</span>
-                         <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
-                     </div>
-                     
-                     <div class='infoDiv FinfoDiv'>
-                         <div class='infoDiv'></div>
-                             <i class='fa-solid fa-calendar-xmark icones'></i>
-                             <span class='subInfo' id='taskDate{$tab8['id_task']}'>$date</span>
-                         </div>
-                         <div class='infoDiv'>
-                             <span class='subInfo count fix subCounts{$tab8['id_task']}' id='subCount{$tab8['id_task']}'>$tab4[0]</span>
-                             <span class='subInfo'>Subtasks</span>
-                         </div>
-                         <div class='infoDiv LinfoDiv'>
-                             <div class='colors' id='taskListColor{$tab8['id_task']}' style='background-color:{$tab8['color_list']};'></div>
-                             <span class='subInfo' id='taskListName{$tab8['id_task']}'>{$tab8['name_list']}</span>
-                     </div>
-                 </div>
-                 ";
-              }
-        ?>
+       
     </div>
     </div>
 </div>  

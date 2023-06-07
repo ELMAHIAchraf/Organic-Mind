@@ -19,14 +19,14 @@
         <div id="search">
             <div id="searchDiv">
                 <i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
-                <input id="searchInput" type="search" placeholder="Search">
+                <input id="searchInput" type="search" placeholder="Search" onkeydown="search()">
             </div>
         </div>
 
         <div id="main">
             <span id="tasksText">TASKS</span>  
             
-            <div class="container" id="upcomingOpt" onclick="showMain('upcoming'), changeDestCount(this.id), controlTasksMenu('close')">
+            <div class="container" id="upcomingOpt" onclick="showMain('upcoming'); changeDestCount(this.id);updateTomorrow();updateWeek();updateLater();controlTasksMenu('close')">
                 <div class="sub-container">
                     <i class="fa-solid fa-angles-right icones"></i>
                     <span class="text" id="upcomingText">Upcoming</span>
@@ -42,7 +42,7 @@
                 </span>
             </div>
             <!-- Any Probelems might be caused by adding controlTasksMenu('close')-->
-            <div class="container" id="todayOpt" onclick="showMain('today'), changeDestCount(this.id),controlTasksMenu('close')">
+            <div class="container" id="todayOpt" onclick="showMain('today');changeDestCount(this.id);updateToday();controlTasksMenu('close')">
                 <div class="sub-container">
                     <i class="fa-solid fa-list-check icones"></i>
                     <span class="text" id="todayText">Today</span>
@@ -58,7 +58,7 @@
                 </span>
             </div>
 
-            <div class="container" id="calendarOpt" onclick="showMain('calendar'), controlTasksMenu('close')">
+            <div class="container" id="calendarOpt" onclick="showMain('calendar');updateTodayCalendar();updateWeekCalendar();updateMonthCalendar();controlTasksMenu('close')">
                 <div class="sub-container">
                     <i class="fa-solid fa-calendar-days icones"></i>
                     <span class="text" id="calendarText">Calendar</span>
