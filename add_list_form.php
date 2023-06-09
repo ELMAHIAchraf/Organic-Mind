@@ -108,13 +108,13 @@
                     let list=JSON.parse(xhr.responseText);
 
                     document.getElementById('listOnly').innerHTML+=`
-                            <div class='container'>
+                            <div class='container_list' id='${list.name}Opt' onclick='showList(\"${list.name}\", ${list.id_list})'>
 
                                 <div class='sub-container' id='list${list.id_list}'>
                                     <div class='colors' style='background-color:${list.color};'></div>
-                                    <span class='text'>${list.name}</span>
+                                    <span class='text_list' id='${list.name}Text'>${list.name}</span>
                                 </div>
-                                <span  class='count'>0</span>
+                                <span  class='count_list' id='${list.name}listCount'>0</span>
                             </div>
                         `;
 

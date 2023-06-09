@@ -27,7 +27,7 @@
                             <select class="metaInfo" id="listInput">
                                 <?php
                                     while($tab4=mysqli_fetch_assoc($query2Dup)){
-                                        echo "<option id='{$tab4['name_list']}' value='{$tab4['id_list']}'>{$tab4['name_list']}</option>";
+                                        echo "<option id='list{$tab4['id_list']}' value='{$tab4['id_list']}'>{$tab4['name_list']}</option>";
                                     }
                                 ?>
                             </select>

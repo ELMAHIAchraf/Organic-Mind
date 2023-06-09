@@ -1,10 +1,12 @@
 <?php
     include("connexion.php");
 
+    date_default_timezone_set('Africa/Casablanca');
+    $date=date("Y-m-d ");
+
     $data=array();
 
     for ($i=8; $i <= 24; $i++){
-        $date=date("Y-m-d ");
 
         $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE due_date='$date $i:00:00'";
         $query=mysqli_query($conn, $sql);

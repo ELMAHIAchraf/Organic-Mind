@@ -23,7 +23,7 @@ function controlTasksMenu(action, id_task){
                         document.getElementById('nameInput').value=task.name_task;
                         document.getElementById('descriptionInput').value=task.description_task;
                         /* list wont appear*/
-                        document.getElementById(task.name_list).setAttribute('selected', 'selected');
+                        document.getElementById('list'+task.id_list).selected="true";
                         document.getElementById('dateInput').value=task.due_date;
                         document.getElementById('timeInput').value=task.due_time;
 
@@ -58,7 +58,7 @@ function controlTasksMenu(action, id_task){
 function deleteSubtask(id_subtask){
     let subtask=document.getElementById(id_subtask).id;
 
-    let xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
             xhr.onload=function(){
                 if(xhr.status==200){
                     if(xhr.responseText){
@@ -98,6 +98,18 @@ function hideTrash(index){
 
 let oldclicked='today';
 function showMain(div){
+
+    if(clicked){
+        document.getElementById(clicked).style.display="none";
+        document.getElementById(clicked+"Text").style.fontWeight='500';
+        document.getElementById(clicked+"Opt").style.backgroundColor='#F1F1F1';
+        document.getElementById(clicked+"listCount").style.backgroundColor='#e4e4e4';
+    }
+
+    document.getElementById('listMain').style.display="none";
+    let divs=document.getElementsByClassName('container');
+    
+
     document.getElementById(oldclicked+"Opt").style.backgroundColor='#F1F1F1';
 
     document.getElementById(oldclicked+"Text").style.fontWeight='500';
@@ -299,6 +311,54 @@ function search(){
        document.getElementById("searchMain").style.display='block';
        seachTasks();
     }
+}
+
+let clicked;
+let id_list;
+function showList(name_list, listId){
+    document.getElementById('searchMain').style.display="none";
+    
+        document.getElementById(oldclicked).style.display="none";
+        document.getElementById(oldclicked+"Text").style.fontWeight='500';
+        document.getElementById(oldclicked+"Opt").style.backgroundColor='#F1F1F1';
+        if(oldclicked=="upcoming" || oldclicked=="today"){
+            document.getElementById(oldclicked+"CountTask").style.backgroundColor='#e4e4e4';
+        }
+
+    let divs2=document.getElementsByClassName('container_list');
+
+    for(let i=0; i <divs2.length; i++){
+        document.getElementsByClassName('text_list')[i].style.fontWeight='500';
+        document.getElementsByClassName('container_list')[i].style.backgroundColor='#F1F1F1';
+        document.getElementsByClassName('count_list')[i].style.backgroundColor='#e4e4e4';
+    }
+
+    document.getElementById('listMain').style.display="block";
+    getList(name_list);
+
+    document.getElementById(name_list+"Text").style.fontWeight='600';
+    document.getElementById(name_list+"Opt").style.backgroundColor='#e4e4e4';
+    document.getElementById(name_list+"listCount").style.backgroundColor='white';
+    
+
+    clicked=name_list;
+    id_list=listId;
+
+}
+function removeList(){
+        let xhr = new XMLHttpRequest();
+            xhr.onload=function(){
+                if(xhr.status==200){
+                    if(xhr.responseText==1){
+                        document.getElementById(clicked+"Opt").style.display="none";
+                        document.getElementById("listMain").style.display="none";
+                        showMain("today");
+                    }
+                }
+            }
+            xhr.open('POST', 'remove_list.php', true)
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('id_list='+id_list);
 }
 
 

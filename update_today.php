@@ -1,5 +1,7 @@
 <?php
     include("connexion.php");
+    
+    date_default_timezone_set('Africa/Casablanca');
     $current_date=date('Y-m-d');
     $data=array();
      $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)='$current_date'";
@@ -8,7 +10,6 @@
          $sql2="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab['id_task']}";
          $query2=mysqli_query($conn, $sql2);
          $tab2=mysqli_fetch_row($query2);
-        
          $date=date_create("{$tab['due_date']}");
          $date=date_format($date,"y-m-d");
 

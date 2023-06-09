@@ -20,12 +20,12 @@
                     $date=date_create($tab[2]);
                     $date=date_format($date,"y-m-d");
                     if($tab[0]!=null){
-
-                        if($wihichSql=="SELECT id_task, name_task, DATE(due_date), count(id_subtask), name_list, color_list FROM tasks NATURAL JOIN lists NATURAL JOIN subtasks WHERE id_user=1 AND (name_task='$search' OR name_task LIKE '%$search' OR name_task LIKE '$search%' OR name_task LIKE '%$search%')")
+                        if($wihichSql=="SELECT id_task, name_task, DATE(due_date), count(id_subtask), name_list, color_list FROM tasks NATURAL JOIN lists NATURAL JOIN subtasks WHERE id_user=1 AND (name_task='$search' OR name_task LIKE '%$search' OR name_task LIKE '$search%' OR name_task LIKE '%$search%')"){
                             $tab2[]=array("id_task"=>$tab[0], "name_task"=>$tab[1], "due_date"=>$date, "subtaskCount"=>$tab[3], "name_list"=>$tab[4], "color_list"=>$tab[5]);
                         }else{
-                            $tab2[]=array("id_task"=>$tab[0], "name_task"=>$tab[1], "due_date"=>$date, "name_list"=>$tab[3], "color_list"=>$tab[4]);
+                            $tab2[]=array("id_task"=>$tab[0], "name_task"=>$tab[1], "due_date"=>$date,"subtaskCount"=>0, "name_list"=>$tab[3], "color_list"=>$tab[4]);
                         }
+                    }
                 }
                 if(!empty($tab2)){
                     $tab2[]=array("taskCount"=>count($tab2));

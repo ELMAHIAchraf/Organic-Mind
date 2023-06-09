@@ -104,7 +104,7 @@ input[type="search"]::-webkit-search-cancel-button{
 #todayCountTask{
     background-color: white;
 }
-.container{
+.container, .container_list{
     display: flex;
     justify-content: space-between;
     width: 85%;
@@ -138,7 +138,7 @@ input[type="search"]::-webkit-search-cancel-button{
 .noMtext{
     margin-left: 0px;
 }
-.text{
+.text, .text_list{
     font-size: 14px;
     font-weight: 500;
     color: #545454;
@@ -150,7 +150,7 @@ input[type="search"]::-webkit-search-cancel-button{
 .tasksName{
     font-size: 16px;
 }
-.count{
+.count, .count_list{
     font-weight: bold;
     font-size: 12px;
     background-color: #e4e4e4;
@@ -205,7 +205,8 @@ hr{
 .todayTitle{
     display: inline-block;
 }
-#todayCount, #searchCount{
+
+#todayCount, #searchCount, #listCount{
     font-weight: bold;
     font-size: 28px;
     color: #333333;
@@ -582,7 +583,6 @@ button{
 }
 #dayContainer{
     margin-top: 15px;
-    width: 1185px;
     overflow: auto;
 }
 .dateContainer{
@@ -684,8 +684,8 @@ button{
     background-color: #9fd7ff;
     border-radius: 10px;
     height: 130px;
-    width: 120px;
-    margin-left: 10px;
+    width: 85%;
+    margin-left: 7.5%;
     margin-top: 10px;
 
 }
@@ -701,11 +701,9 @@ button{
     overflow: auto;
 }
 
-
-
 #monthContainer{
     display: none;
-    grid-template-columns: repeat(7, 155px);
+    grid-template-columns: repeat(7, 13.1%);
     grid-template-rows: 30px repeat(5, 107px);
     grid-gap: 3px;
 }

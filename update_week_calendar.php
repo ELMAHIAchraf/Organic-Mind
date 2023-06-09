@@ -1,6 +1,8 @@
 <?php
     include("connexion.php");
 
+    date_default_timezone_set('Africa/Casablanca');
+
     $firstDay=date("Y-m-d", strtotime("this week"));
     $lastDay=date("Y-m-d", strtotime("next week -1 day"));
     $start=date("d", strtotime($firstDay));

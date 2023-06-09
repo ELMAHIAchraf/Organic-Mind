@@ -16,10 +16,12 @@
         <script>
         function seachTasks(){
             let search=document.getElementById('searchInput').value
+            document.getElementById('listMain').style.display="none";
             let xhr = new XMLHttpRequest();
             xhr.onload=function(){
                 if(xhr.status==200){
                     if(xhr.responseText){
+                        
                         let data=JSON.parse(xhr.responseText);
                         document.getElementById('searchCont').innerHTML="";
                         for(let i=0; i < data.length-1;i++){

@@ -61,10 +61,7 @@
                         for ($i=8; $i <= 24; $i++){ 
                             $date=date("Y-m-d ");
                             $time=date('h:i A', strtotime("$i:00:00"));
-                            if($i==24){
-                                $time="Midnight";
-                            }
-                            $now=date('h:00 A', strtotime(date("h:m:i")));           
+                            $now=date('h:00 A');  
                             if($now==$time){
                                 $line="
                                     <div id='lineCont'>
@@ -129,14 +126,9 @@
                     for ($i=8; $i <= 24; $i++){ 
                         $date=date("Y-m-d ");
                         $amORpm="AM";
-                        $time=date('h:i A', strtotime("$i:00:00"));
-                        if($i==24){
-                            $time="Midnight";
-                        }
-
+                        $time=date('h:i A', strtotime("$i:00:00")); 
                         echo "<div class='clockCont'>$time</div>";
                     }
-
                     $days=array("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN");
                     $m=0;
                     $style='';

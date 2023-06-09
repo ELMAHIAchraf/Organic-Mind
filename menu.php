@@ -86,12 +86,12 @@
                         $query6=mysqli_query($conn, $sql6);
                         $tab6=mysqli_fetch_row($query6);
                         echo "
-                            <div class='container'>
+                            <div class='container_list' id='{$tab2['name_list']}Opt' onclick='showList(\"{$tab2['name_list']}\", {$tab2['id_list']})'>
                                 <div class='sub-container'>
                                     <div class='colors' style='background-color:{$tab2['color_list']};'></div>
-                                    <span class='text'>{$tab2['name_list']}</span>
+                                    <span class='text_list' id='{$tab2['name_list']}Text'>{$tab2['name_list']}</span>
                                 </div>
-                                <span  class='count' id='listCount{$tab2['id_list']}'>$tab6[0]</span>
+                                <span  class='count_list' id='{$tab2['name_list']}listCount'>$tab6[0]</span>
                             </div>
                             ";
                     }
@@ -101,6 +101,12 @@
                 <div class="sub-container">
                     <i class="fa-solid fa-plus icones noMIcon"></i>
                     <span class="text noMtext">Add New List</span>
+                </div>
+            </div>
+            <div class="container" onclick="removeList()">
+                <div class="sub-container">
+                    <i class="fa-solid fa-trash-can icones noMIcon"></i>
+                    <span class="text noMtext">Remove List</span>
                 </div>
             </div>
         </div>
