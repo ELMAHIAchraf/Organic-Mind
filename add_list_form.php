@@ -114,7 +114,7 @@
                                     <div class='colors' style='background-color:${list.color};'></div>
                                     <span class='text_list' id='${list.name}Text'>${list.name}</span>
                                 </div>
-                                <span  class='count_list' id='${list.name}listCount'>0</span>
+                                <span  class='count_list' id='listCount${list.id_list}'>0</span>
                             </div>
                         `;
 

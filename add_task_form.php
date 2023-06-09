@@ -111,12 +111,15 @@
             margin-left: -13px;
         }
         #dateT{
-            margin-left: -8px;
+            margin-left: -6px;
             display: inline-block;
         } 
         #timeT{
             display: inline-block;
             margin-left: -13px;
+        }
+        #timeForm{
+            width: 100px;
         }
         #dateTime{
             margin-top: -10px;
@@ -146,6 +149,7 @@
                             while($tab=mysqli_fetch_assoc($query)){
                                 echo "<option id='{$tab['name_list']}' value='{$tab['id_list']}'>{$tab['name_list']}</option>";
                             }
+
                         ?>
                         </select>
                     </div>
@@ -156,7 +160,7 @@
                         <div class="metaInfoDivT metaInfoDivT2"><input id="dateInputT" type="date" class="metaInfo"></div>
                     </div>
                     <div id="timeT">
-                        <div class="metaInfoDivT metaInfoDivT2"><input id="timeInputT" value="<?php echo date("h:00:00") ?>" type="time" class="metaInfo"></div>
+                        <div class="metaInfoDivT metaInfoDivT2" id="timeForm"><input id="timeInputT" value="<?php echo date("H:00:00") ?>" type="time" class="metaInfo"></div>
                     </div>
                 </div>
                     <input type="hidden" id="containerId" value="tasksCont;">
@@ -187,6 +191,7 @@
                     // let index=document.getElementsByClassName('Subtask').length;
                     for(let i=0; i<container.length; i++){
                     document.getElementById(container[i]).innerHTML+=`
+                    
                         <div class='tasks cl${task.id_task}' id='${task.id_task}' onclick=\"controlTasksMenu('open', this.id)\">
                             <div class='tasks2'>
                                 <span class='text noMtext tasksName' id='taskName${task.id_task}'>${task.name}</span>

@@ -95,7 +95,7 @@
                             <span class='subInfo' id='taskDate{$tab3['id_task']}'>$date</span>
                         </div>
                         <div class='infoDiv'>
-                            <span class='subInfo count fix' id='subCount{$tab3['id_task']}'>$tab4[0]</span>
+                            <span class='subInfo count fix subCounts{$tab3['id_task']}' id='subCount{$tab3['id_task']}'>$tab4[0]</span>
                             <span class='subInfo'>Subtasks</span>
                         </div>
                         <div class='infoDiv LinfoDiv'>

@@ -64,12 +64,16 @@ function deleteSubtask(id_subtask){
                     if(xhr.responseText){
                         document.getElementById(id_subtask).style.display="none";
                         
-                        let className=document.getElementsByClassName(`subCounts${xhr.responseText}`);
+                        let className=document.getElementsByClassName(`subInfo count fix subCounts${xhr.responseText}`); 
                         let count=className[0].innerHTML;
                         count--;
                         for(let i=0; i<className.length; i++){
                             className[i].innerHTML=count;
                         }
+                        // let className=document.getElementById(`subCount${xhr.responseText}`); 
+                        // let count=className.innerHTML;
+                        // count--;     
+                        // className.innerHTML=count;  
                     }
                 }
             }
@@ -99,11 +103,11 @@ function hideTrash(index){
 let oldclicked='today';
 function showMain(div){
 
-    if(clicked){
+    if(clicked && clickedID){
         document.getElementById(clicked).style.display="none";
         document.getElementById(clicked+"Text").style.fontWeight='500';
         document.getElementById(clicked+"Opt").style.backgroundColor='#F1F1F1';
-        document.getElementById(clicked+"listCount").style.backgroundColor='#e4e4e4';
+        document.getElementById("listCount"+clickedID).style.backgroundColor='#e4e4e4';
     }
 
     document.getElementById('listMain').style.display="none";
@@ -204,13 +208,13 @@ function deleteTask(){
                     if(xhr.responseText){
                         for(let i=0; i<tasks.length; i++){
                             tasks[i].style.display="none";
-                        }        
+                        }  
 
                         let container=document.getElementById('containerId').value;
                         container=container.substring(0, container.length-1);
                         container=container.split(";");     
                         countName=container[0];
-
+ 
                         if(countName=="tasksCont"){
                             let count=document.getElementById('todayCount').innerHTML;
                             count--;
@@ -314,6 +318,7 @@ function search(){
 }
 
 let clicked;
+let clickedID;
 let id_list;
 function showList(name_list, listId){
     document.getElementById('searchMain').style.display="none";
@@ -338,10 +343,11 @@ function showList(name_list, listId){
 
     document.getElementById(name_list+"Text").style.fontWeight='600';
     document.getElementById(name_list+"Opt").style.backgroundColor='#e4e4e4';
-    document.getElementById(name_list+"listCount").style.backgroundColor='white';
+    document.getElementById("listCount"+listId).style.backgroundColor='white';
     
 
     clicked=name_list;
+    clickedID=listId;
     id_list=listId;
 
 }

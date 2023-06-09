@@ -32,6 +32,7 @@
                                 // document.getElementById('searchCont').innerHTML="";
                                 let j=0;
                                 for(let i=8; i <= 24;i++){
+                                    document.getElementById(`lastRow${i}`).innerHTML="";
                                     if(data[j]!=0){
                                         document.getElementById(`lastRow${i}`).innerHTML=`
                                         <div class='taskDivTab' style='background-color: ${data[j].color_list}'>

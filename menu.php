@@ -91,7 +91,7 @@
                                     <div class='colors' style='background-color:{$tab2['color_list']};'></div>
                                     <span class='text_list' id='{$tab2['name_list']}Text'>{$tab2['name_list']}</span>
                                 </div>
-                                <span  class='count_list' id='{$tab2['name_list']}listCount'>$tab6[0]</span>
+                                <span  class='count_list' id='listCount{$tab2['id_list']}'>$tab6[0]</span>
                             </div>
                             ";
                     }
