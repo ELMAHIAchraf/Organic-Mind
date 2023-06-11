@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include("connexion.php");
 
     date_default_timezone_set('Africa/Casablanca');

@@ -11,7 +11,7 @@
         <h1 class="todayTitle">Sticky Wall</h1>
         <div id="stickyContainer">
            <?php
-                $sql="SELECT * FROM stickies WHERE id_user=1";
+                $sql="SELECT * FROM stickies WHERE id_user='{$_SESSION['id_user']}'";
                 $query=mysqli_query($conn, $sql);
                 while($tab=mysqli_fetch_assoc($query)){
                     $description=$tab['description_sticky'];

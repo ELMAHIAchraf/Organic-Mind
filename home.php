@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,20 +20,22 @@
 </head>
 <body>
     <?php 
-        date_default_timezone_set('Africa/Casablanca');
-        include('connexion.php');
-        include('add_sticky_form.php');
-        include('add_list_form.php');
-        include('add_subtask_form.php');
-        include('add_task_form.php');
-        include("menu.php");
-        include("today.php");
-        include("upcoming.php");
-        include("calendar.php");
-        include("sticky_wall.php");
-        include("list.php");
-        include('search.php');
-        include("task_menu.php");
+        if(isset($_SESSION) && !empty($_SESSION)){
+            date_default_timezone_set('Africa/Casablanca');
+            include('connexion.php');
+            include('add_sticky_form.php');
+            include('add_list_form.php');
+            include('add_subtask_form.php');
+            include('add_task_form.php');
+            include("menu.php");
+            include("today.php");
+            include("upcoming.php");
+            include("calendar.php");
+            include("sticky_wall.php");
+            include("list.php");
+            include('search.php');
+            include("task_menu.php");
+        }
     ?>           
 </body>
 </html>

@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include('connexion.php');
 
         if(isset($_POST['name_list']) and !empty($_POST['name_list'])){
@@ -6,7 +8,7 @@
                 $name_list=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['name_list'])));
 
                 $data=array();
-                $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND name_list='$name_list'";
+                $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user='{$_SESSION['id_user']}' AND name_list='$name_list'";
                 $query=mysqli_query($conn, $sql);
                 while($tab=mysqli_fetch_assoc($query)){
                     $sql2="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab['id_task']}";

@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include('connexion.php');
         if(isset($_POST['id_subtask']) and !empty($_POST['id_subtask'])){
 

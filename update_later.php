@@ -1,8 +1,10 @@
 <?php
+    session_start();
+
     include("connexion.php");
     $startDate=date("Y-m-d", strtotime("tomorrow"));
     $data=array();
-     $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)>='$startDate'";
+     $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user='{$_SESSION['id_user']}' AND DATE(due_date)>='$startDate'";
      $query=mysqli_query($conn, $sql);
      while($tab=mysqli_fetch_assoc($query)){
          $sql2="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab['id_task']}";

@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include("connexion.php");
 
     $data=array();
@@ -13,7 +15,7 @@
         $date=date("Y-m-$Date");
 
         $microData=array($Date);
-        $sql="SELECT color_list FROM tasks NATURAL JOIN lists WHERE DATE(due_date)='$date' AND id_user=1 LIMIT 3";
+        $sql="SELECT color_list FROM tasks NATURAL JOIN lists WHERE DATE(due_date)='$date' AND id_user='{$_SESSION['id_user']}' LIMIT 3";
         $query=mysqli_query($conn, $sql);
         $count=0;
         while($tab=mysqli_fetch_row($query)){

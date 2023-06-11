@@ -15,14 +15,16 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
-        body{
+        #index{
             background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        #container{
-            width: 1220px;
-            height: 700px;
-            margin-top: 26px;
-            margin-left: 150px;
+        #containerInd{
+            width: 1030px;
+            height: 600px;
             display: flex;
             justify-content: space-between;
         }
@@ -30,40 +32,46 @@
             font-family: 'IBM Plex Sans Arabic', sans-serif;
         }
         img{
-            width: 600px;
-            height: 700px;
+            width: 500px;
+            height: 600px;
             border-radius: 15px;
         }
-        #formDiv{
+        #formDivInd{
             border: 1px solid #e6e6e6;
             border-radius: 15px;
-            width: 600px;
-            height: 700px;
+            width: 500px;
+            height: 600px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        #formSubDiv{
+        #formSubDivInd{
             width: 420px;           
         }
-        #Header{
+        #HeaderInd{
             font-size: 45px;
             font-weight: bold;
             color: #2c2c2c;
         }
-        #Par1{
+        #Par1Ind{
             font-size: 15px;
             font-weight: 500;
             color: #484848;
             margin-top: -15px;
         }
-        #Par2{
+        #Par2Ind{
             text-align: center;
             font-size: 14px;
             font-weight: bold;
             color: #484848;
+            cursor: pointer;
+            width: 220px;
+            margin-left: 100px;
         }
-        #Butt{
+        #Par2Ind:hover{
+            text-decoration: underline;
+        }
+        #ButtInd{
             border: none;
             width: 420px;
             height: 40px;
@@ -77,20 +85,32 @@
     </style>
 </head>
 <body>
-    <div id="container">
+    <div id="index">
+    <div id="containerInd">
         <img src="image.png" alt="">
-        <div id="formDiv">
-            <div id="formSubDiv">
-                <h1 id="Header">Productive Mind</h1>
-                <p id="Par1">
+        <div id="formDivInd">
+            <div id="formSubDivInd">
+                <h1 id="HeaderInd">Productive Mind</h1>
+                <p id="Par1Ind">
                     With only the features you need, Organic Mind is customized
                     for individuals seeking a stress-free way to stay focused on
                     their goals, projects, and tasks.
                 </p>
-                <button id="Butt">Get Started</button>
-                <p id="Par2">Already have an account? Sign in</p>
+                <button id="ButtInd" onclick="openSignup()">Get Started</button>
+                <p id="Par2Ind" onclick="openLogin()">Already have an account? Sign in</p>
             </div>
         </div>
+    </div>
+    <script>
+        function openSignup(){
+            document.getElementById("index").style.display="none";
+            document.getElementById("signup").style.display="flex";
+        }
+        function openLogin(){
+            document.getElementById("index").style.display="none";
+            document.getElementById("login").style.display="flex";
+        }
+    </script>
     </div>
 </body>
 </html>

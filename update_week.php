@@ -1,9 +1,10 @@
 <?php
+    session_start();
     include("connexion.php");
     $date=date("Y-m-d", time()+24*3600);
     $LastDayOfTheWeek=date("Y-m-d", strtotime("next Sunday"));
     $data=array();
-     $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user=1 AND (DATE(due_date) BETWEEN '$date' AND '$LastDayOfTheWeek')";
+     echo $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE id_user='{$_SESSION['id_user']}' AND (DATE(due_date) BETWEEN '$date' AND '$LastDayOfTheWeek')";
      $query=mysqli_query($conn, $sql);
      while($tab=mysqli_fetch_assoc($query)){
          $sql2="SELECT count(id_task) as subtaskCount FROM subtasks WHERE id_task={$tab['id_task']}";

@@ -62,7 +62,7 @@
             height: 150px;
             resize: none;
         }
-        #addButton{
+        #addButtonL{
             border: none;
             padding: 10px 30px;
             font-size: 16px;
@@ -76,6 +76,7 @@
             color: #656565;
             font-size: 13px;
         }
+        /*achanged button id*/
         
         
     </style>
@@ -87,7 +88,7 @@
                 <h1>List:</h1>
                 <div class="inputsDiv"><input class="inputs" type="text" id="nameList" name="name" placeholder="Name"></div><br>
                 <div class="inputsDiv"><label id="colorLabel">Color</label>&nbsp;<input id="colorList" class="inputs" type="color" name="color"></div><br>
-                <button type="button" id="addButton" onclick="addList()"><i class="fa-sharp fa-solid fa-plus"></i>&ensp;Add</button>
+                <button type="button" id="addButtonL" onclick="addList()"><i class="fa-sharp fa-solid fa-plus"></i>&ensp;Add</button>
             </form>
         </div>
     </div>

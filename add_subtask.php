@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include('connexion.php');
 
         if(isset($_POST['name']) and !empty($_POST['name']) &&

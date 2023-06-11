@@ -182,6 +182,7 @@ function saveTaskChanges(){
                             let id=document.getElementById("idInput").value;
                             document.getElementById(id).style.display="none";
                             document.getElementById("Task").style.display="none";
+                           
                         }
 
                         let oldList=document.getElementById('listCount'+task.oldId_list).innerHTML;

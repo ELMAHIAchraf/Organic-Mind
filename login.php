@@ -15,14 +15,16 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
-        body{
+       #login{
             background-color: #fafafa;
+            justify-content: center;
+            align-items: center;
+            height: 97vh;
+            display: none;
         }
-        #container{
-            width: 1220px;
-            height: 700px;
-            margin-top: 26px;
-            margin-left: 150px;
+        #containerLog{
+            width: 1030px;
+            height: 600px;
             display: flex;
             justify-content: space-between;
         }
@@ -30,42 +32,50 @@
             font-family: 'IBM Plex Sans Arabic', sans-serif;
         }
         img{
-            width: 600px;
-            height: 700px;
+            width: 500px;
+            height: 600px;
             border-radius: 15px;
         }
-        #formDiv{
+        #formDivLog{
             border: 1px solid #e6e6e6;
             border-radius: 15px;
-            width: 600px;
-            height: 700px;
+            width: 500px;
+            height: 600px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        #formSubDiv{
-            width: 420px;           
+        #formSubDivLog{
+            width: 400px; 
         }
-        #Header{
+        #HeaderLog{
             font-size: 40px;
             font-weight: bold;
             color: #2c2c2c;
+            margin-top: -20px;
+            margin-left: 5px;
         }
-        #Par1{
+        #Par1Log{
             font-size: 15px;
             font-weight: 500;
             color: #484848;
             margin-top: -15px;
         }
-        #Par2{
+        #Par2Log{
             text-align: center;
             font-size: 14px;
             font-weight: bold;
             color: #484848;
+            cursor: pointer;
+            width: 200px;
+            margin-left: 110px;
         }
-        #Butt{
+        #Par2Log:hover{
+            text-decoration: underline;
+        }
+        #ButtLog{
             border: none;
-            width: 420px;
+            width: 400px;
             height: 40px;
             font-size: 15px;
             font-weight: bold;
@@ -75,49 +85,76 @@
             border-radius: 6px;
             margin-top: 10px;
         }
-        .taskNameT{
+        .taskNameTLog{
             border: 1px solid #e6e6e6;
             border-radius: 8px;
         }
-        .inputs{
+        .inputsLog{
             background-color: transparent;
             border: none;
             outline: none;
-            width: 360px;
+            width: 340px;
             height: 40px;
             font-size: 14px;
             font-weight: 500;
             padding-left: 20px;
             color: #484848;
         }
-        #eye{
+        #eyeLog{
             color: #696969;
             font-size: 14px;
+            cursor: pointer;
         }
-        #emailCont{
+        #emailContLog{
             margin-bottom: 10px;
+            margin-top: -10px;
+        }
+        #loginFail{
+            color: red;
+            font-size: 14px;
+            margin-left: 110px;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div id="container">
+    <div id="login">
+    <div id="containerLog">
         <img src="image2.png" alt="">
-        <div id="formDiv">
-            <div id="formSubDiv">
-                <form>
-                    <h1 id="Header">Sign in</h1>
-                    <div class="taskNameT" id="emailCont">
-                        <input class="inputs" id="email"  type="email" placeholder="Email">
+        <div id="formDivLog">
+            <div id="formSubDivLog">
+                    <h1 id="HeaderLog">Sign in</h1>
+                    <div class="taskNameTLog" id="emailContLog">
+                        <input class="inputsLog" id="emailLog"  type="email" placeholder="Email">
                     </div>
-                    <div class="taskNameT">
-                        <input class="inputs" id="passwordCont"  type="password" placeholder="Password">
-                        <i class="fa-solid fa-eye" id="eye"></i>
+                    <div class="taskNameTLog">
+                        <input class="inputsLog" id="passwordContLog"  type="password" placeholder="Password">
+                        <i class="fa-solid fa-eyeLog" id="eyeLog" onclick="showPassword()"></i>
                     </div>
-                    <button id="Butt">Sign in</button>
-                    <p id="Par2">Don't have an account? Sign in</p>
-                </form>
+                    <p id="loginFail">Incorrect email or password</p>
+                    <button id="ButtLog" onclick="Login()">Sign in</button>
+                    <p id="Par2Log" onclick="openSignup2()">Don't have an account? Sign up</p>
             </div>
         </div>
     </div>
+    </div>
+    <script>
+    let counter=0;
+    function showPassword(){
+        if(counter%2 != 0){
+            document.getElementById('passwordCont').setAttribute("type", "text");
+            document.getElementById('eyeLog').setAttribute("class", "fa-solid fa-eyeLog");
+        }else{
+            document.getElementById('passwordCont').setAttribute("type", "password");
+            document.getElementById('eyeLog').setAttribute("class", "fa-solid fa-eyeLog-slash");
+        }
+        counter++;
+
+    }
+    function openSignup2(){
+        document.getElementById("login").style.display="none";
+        document.getElementById("signup").style.display="flex";
+    }
+    </script>
 </body>
 </html>

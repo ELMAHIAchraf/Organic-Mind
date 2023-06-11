@@ -25,7 +25,7 @@
             display: flex;
             align-items: center;
         }
-        #addStickyForm{
+        #addsubTaskForm{
             width: 100%;
             display: flex;
             justify-content: center;
@@ -71,7 +71,7 @@
 <body>
     <div id="transparent-bgS" onclick="hideFormS()">
         <div id="form-divS">
-            <form id="addStickyForm">
+            <form id="addsubTaskForm">
                 <h1>Subtask:</h1>
                 <div class="inputsDiv"><input class="inputs" type="text" id="nameS" placeholder="Name"></div><br>
                 <button type="button" id="addButtonS" onclick="addSubtask()"><i class="fa-sharp fa-solid fa-plus"></i>&ensp;Add</button>

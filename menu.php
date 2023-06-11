@@ -34,7 +34,7 @@
                 <span  class="count" id="upcomingCountTask">
                 <?php
                     $date=date("Y-m-d");
-                    $sql7="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)>'$date'";
+                    $sql7="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user='{$_SESSION['id_user']}' AND DATE(due_date)>'$date'";
                     $query7=mysqli_query($conn, $sql7);
                     $tab7=mysqli_fetch_assoc($query7);
                     echo $tab7['taskCount'];
@@ -50,7 +50,7 @@
                 <span  class="count" id="todayCountTask">
                     <?php
                         $date=date("Y-m-d");
-                        $sql5="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user=1 AND DATE(due_date)='$date'";
+                        $sql5="SELECT count(id_task) as taskCount FROM tasks NATURAL JOIN lists WHERE id_user='{$_SESSION['id_user']}' AND DATE(due_date)='$date'";
                         $query5=mysqli_query($conn, $sql5);
                         $tab5=mysqli_fetch_assoc($query5);
                         echo $tab5['taskCount'];
@@ -78,11 +78,11 @@
 
             <div id="listOnly"> 
                 <?php
-                    $sql2="SELECT * FROM lists WHERE id_user=1";
+                    $sql2="SELECT * FROM lists WHERE id_user='{$_SESSION['id_user']}'";
                     $query2=mysqli_query($conn, $sql2);
                     $query2Dup=mysqli_query($conn, $sql2);
                     while($tab2=mysqli_fetch_assoc($query2)){
-                        $sql6="SELECT count(id_task) FROM lists NATURAL JOIN tasks WHERE id_list={$tab2['id_list']} AND id_user=1";
+                        $sql6="SELECT count(id_task) FROM lists NATURAL JOIN tasks WHERE id_list={$tab2['id_list']} AND id_user='{$_SESSION['id_user']}'";
                         $query6=mysqli_query($conn, $sql6);
                         $tab6=mysqli_fetch_row($query6);
                         echo "
@@ -115,11 +115,24 @@
             <div class="container" id="signout">
                 <div class="sub-container">
                     <i class="fa-solid fa-right-from-bracket icones noMIcon"></i>
-                    <span class="text noMtext" id="addText">Sign out</span>
+                    <span class="text noMtext" id="addText" onclick="Signout()">Sign out</span>
                 </div>
             </div>
-            
-
     </div>
+    <script>
+        function Signout(){
+            let xhr = new XMLHttpRequest();
+            xhr.onload=function(){
+                if(xhr.status==200){
+                    if(xhr.responseText==1){
+                        window.open("http://localhost/todo%20list/project.php", "_self")
+                    }
+                }
+            }
+            xhr.open('POST', 'signout_user.php', true)
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send();
+        }
+    </script>
 </body>
 </html>

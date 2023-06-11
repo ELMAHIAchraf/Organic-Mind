@@ -25,7 +25,7 @@
             display: flex;
             align-items: center;
         }
-        #addStickyForm{
+        #addTaskForm{
             width: 100%;
             display: flex;
             justify-content: center;
@@ -130,7 +130,7 @@
 <body>
     <div id="transparent-bgT" onclick="hideFormT()">
         <div id="form-div">
-            <form id="addStickyForm">
+            <form id="addTaskForm">
                 <h1>Task:</h1>
                 <div id="taskNameT">
                     <input class="inputs" id="nameInputT"  type="text" placeholder="Name">
@@ -144,7 +144,7 @@
                         <select class="metaInfo" id="listInputT">
                         <?php
                             include("connexion.php");
-                            $sql="SELECT * FROM lists WHERE id_user=1";
+                            $sql="SELECT * FROM lists WHERE id_user='{$_SESSION['id_user']}'";
                             $query=mysqli_query($conn, $sql);
                             while($tab=mysqli_fetch_assoc($query)){
                                 echo "<option id='{$tab['name_list']}' value='{$tab['id_list']}'>{$tab['name_list']}</option>";

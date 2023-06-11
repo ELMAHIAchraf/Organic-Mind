@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include('connexion.php');
 
         if(isset($_POST['id_task']) and !empty($_POST['id_task'])){
@@ -9,9 +11,9 @@
                 $query=mysqli_query($conn, $sql);
 
                 if(mysqli_num_rows($query)>0){
-                    $sql="SELECT id_task, id_list, id_subtask, name_subtask, name_task, description_task, name_list, DATE(due_date) as due_date, TIME_FORMAT(due_date, '%H:%i:%s') as due_time FROM tasks NATURAL JOIN subtasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user=1";
+                    $sql="SELECT id_task, id_list, id_subtask, name_subtask, name_task, description_task, name_list, DATE(due_date) as due_date, TIME_FORMAT(due_date, '%H:%i:%s') as due_time FROM tasks NATURAL JOIN subtasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user='{$_SESSION['id_user']}'";
                 }else{
-                    $sql="SELECT id_task, id_list, name_task, description_task, name_list, DATE(due_date) as due_date, TIME_FORMAT(due_date, '%H:%i:%s') as due_time FROM tasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user=1";
+                    $sql="SELECT id_task, id_list, name_task, description_task, name_list, DATE(due_date) as due_date, TIME_FORMAT(due_date, '%H:%i:%s') as due_time FROM tasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user='{$_SESSION['id_user']}'";
                 }
                 $wihichSql=$sql;
                 $query1=mysqli_query($conn, $sql);
@@ -31,7 +33,7 @@
                                     'due_time'=>$tab1['due_time']
                                     );
 
-                if($wihichSql=="SELECT id_task, id_list, id_subtask, name_subtask, name_task, description_task, name_list, DATE(due_date) as due_date, TIME_FORMAT(due_date, '%H:%i:%s') as due_time FROM tasks NATURAL JOIN subtasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user=1"){
+                if($wihichSql=="SELECT id_task, id_list, id_subtask, name_subtask, name_task, description_task, name_list, DATE(due_date) as due_date, TIME_FORMAT(due_date, '%H:%i:%s') as due_time FROM tasks NATURAL JOIN subtasks NATURAL JOIN lists WHERE id_task=$id_task AND id_user='{$_SESSION['id_user']}'"){
                     $subtasks=array();
                     while($tab2=mysqli_fetch_assoc($query2)){
                         $subtasks[]=array("subtask"=>$tab2['name_subtask'], "id_subtask"=>$tab2['id_subtask']);
