@@ -49,7 +49,7 @@
                             <div class='infoDiv FinfoDiv'>
                                 <div class='infoDiv'></div>
                                     <i class='fa-solid fa-calendar-xmark icones'></i>
-                                    <span class='subInfo' id='taskDate${data[i].id_task}'>${data[i].date}</span>
+                                    <span class='subInfo taskDate${data[i].id_task}' id='taskDate${data[i].id_task}'>${data[i].date}</span>
                                 </div>
                                 <div class='infoDiv'>
                                     <span class='subInfo count fix subCounts${data[i].id_task}' id='subCount${data[i].id_task}'>${data[i].subtaskCount}</span>
@@ -83,7 +83,7 @@
                 $date=date_create("{$tab3['due_date']}");
                 $date=date_format($date,"y-m-d");
                 echo "
-                <div class='tasks' id='{$tab3['id_task']}' onclick=\"controlTasksMenu('open', this.id)\">
+                <div class='tasks cl{$tab3['id_task']}' id='{$tab3['id_task']}' onclick=\"controlTasksMenu('open', this.id)\">
                     <div class='tasks2'>
                         <span class='text noMtext tasksName' id='taskName{$tab3['id_task']}'>{$tab3['name_task']}</span>
                         <i class='fa-solid fa-angle-up fa-rotate-90 rightCarret'></i>
@@ -92,7 +92,7 @@
                     <div class='infoDiv FinfoDiv'>
                         <div class='infoDiv'></div>
                             <i class='fa-solid fa-calendar-xmark icones'></i>
-                            <span class='subInfo' id='taskDate{$tab3['id_task']}'>$date</span>
+                            <span class='subInfo taskDate{$tab3['id_task']}' id='taskDate{$tab3['id_task']}'>$date</span>
                         </div>
                         <div class='infoDiv'>
                             <span class='subInfo count fix subCounts{$tab3['id_task']}' id='subCount{$tab3['id_task']}'>$tab4[0]</span>

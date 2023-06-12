@@ -10,7 +10,7 @@
                 $description=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['description'])));
                 $color=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['color'])));
 
-                $sql="INSERT INTO stickies VALUES('', 1, '$name', '$description', '$color')";
+                $sql="INSERT INTO stickies VALUES('', {$_SESSION['id_user']}, '$name', '$description', '$color')";
                 if(mysqli_query($conn, $sql)){
                     $id_sticky=mysqli_insert_id($conn);
                     $tab=array("name"=>$name, "description"=>$description, "color"=>$color, "id_sticky"=>$id_sticky);

@@ -30,11 +30,21 @@
                 $sql4="SELECT DATE(due_date) FROM tasks WHERE id_task=$id_task";
                 $query4=mysqli_query($conn, $sql4);
                 $tab4=mysqli_fetch_row($query4);
-                if(strtotime($tab4[0])==strtotime($date)){
+
+                if($date==$tab4[0]){
                     $remove=0;
                 }else{
-                    $remove=1;
+                    if($date==date("Y-m-d", strtotime("+1 day"))){
+                        $remove=1;
+                    }else if($date>date("Y-m-d", strtotime("+1 day")) && $date<=date("Y-m-d", strtotime("next Sunday"))){
+                        $remove=2;
+                    }else if($date>date("Y-m-d", strtotime("next Sunday"))){
+                        $remove=3;
+                    }else {
+                        $remove=4;
+                    }
                 }
+
                 
 
                 $sql="UPDATE tasks SET id_list='$list',name_task='$name', description_task='$description',due_date='$date $time' WHERE id_task=$id_task";

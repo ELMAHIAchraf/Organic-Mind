@@ -167,6 +167,13 @@ function saveTaskChanges(){
                 if(xhr.status==200){
                     if(xhr.responseText){
                         let task=JSON.parse(xhr.responseText);
+                        let id=document.getElementById("idInput").value;
+
+                        let dates=document.getElementsByClassName('subInfo taskDate'+task.id_task);
+                        for(let j=0; j<dates.length;j++){
+                            dates[j].innerHTML=task.due_dateS;
+                        }
+
                         if(task.remove==0){
                             document.getElementById('nameInput').value=task.name_task;
                             document.getElementById('descriptionInput').value=task.description_task;
@@ -175,14 +182,25 @@ function saveTaskChanges(){
                             document.getElementById('timeInput').value=task.time;
                             document.getElementById('idInput').value=task.id_task;
                             document.getElementById('taskName'+task.id_task).innerHTML=task.name_task;
-                            document.getElementById('taskDate'+task.id_task).innerHTML=task.due_dateS;
                             document.getElementById('taskListColor'+task.id_task).style.backgroundColor=task.color_list;
                             document.getElementById('taskListName'+task.id_task).innerHTML=task.name_list;
-                        }else{
-                            let id=document.getElementById("idInput").value;
-                            document.getElementById(id).style.display="none";
+                            
+                        }else if(task.remove==1 ||task.remove==4 ){
+                            let className=document.getElementsByClassName("tasks cl"+id)
+                            for(let i=0; i < className.length; i++){
+                                className[i].style.display="none";
+                            }
                             document.getElementById("Task").style.display="none";
-                           
+                        }else if(task.remove==2){
+                            document.getElementsByClassName("tasks cl"+id)[0].style.display="none";
+                        }else{
+                            let className=document.getElementsByClassName("tasks cl"+id).length
+                            if(className==3){
+                                document.getElementsByClassName("tasks cl"+id)[0].style.display="none";
+                                document.getElementsByClassName("tasks cl"+id)[1].style.display="none";
+                            }else if(className==2){
+                                document.getElementsByClassName("tasks cl"+id)[0].style.display="none";
+                            }
                         }
 
                         let oldList=document.getElementById('listCount'+task.oldId_list).innerHTML;

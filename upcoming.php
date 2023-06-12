@@ -46,7 +46,7 @@
                             <div class='infoDiv FinfoDiv'>
                                 <div class='infoDiv'></div>
                                     <i class='fa-solid fa-calendar-xmark icones'></i>
-                                    <span class='subInfo' id='taskDate${data[i].id_task}'>${data[i].date}</span>
+                                    <span class='subInfo taskDate${data[i].id_task}' id='taskDate${data[i].id_task}'>${data[i].date}</span>
                                 </div>
                                 <div class='infoDiv'>
                                     <span class='subInfo count fix subCounts${data[i].id_task}' id='subCount${data[i].id_task}'>${data[i].subtaskCount}</span>
@@ -108,7 +108,7 @@
                             <div class='infoDiv FinfoDiv'>
                                 <div class='infoDiv'></div>
                                     <i class='fa-solid fa-calendar-xmark icones'></i>
-                                    <span class='subInfo' id='taskDate${data[i].id_task}'>${data[i].date}</span>
+                                    <span class='subInfo taskDate${data[i].id_task}' id='taskDate${data[i].id_task}'>${data[i].date}</span>
                                 </div>
                                 <div class='infoDiv'>
                                     <span class='subInfo count fix subCounts${data[i].id_task}' id='subCount${data[i].id_task}'>${data[i].subtaskCount}</span>
@@ -170,7 +170,7 @@
                             <div class='infoDiv FinfoDiv'>
                                 <div class='infoDiv'></div>
                                     <i class='fa-solid fa-calendar-xmark icones'></i>
-                                    <span class='subInfo' id='taskDate${data[i].id_task}'>${data[i].date}</span>
+                                    <span class='subInfo taskDate${data[i].id_task}' id='taskDate${data[i].id_task}'>${data[i].date}</span>
                                 </div>
                                 <div class='infoDiv'>
                                     <span class='subInfo count fix subCounts${data[i].id_task}' id='subCount${data[i].id_task}'>${data[i].subtaskCount}</span>

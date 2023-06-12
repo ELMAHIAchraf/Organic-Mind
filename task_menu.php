@@ -40,7 +40,6 @@
                     </div>
                     <div id="time">
                         <br><div class="metaInfoDiv metaInfoDiv2"><input id="timeInput" type="time" class="metaInfo"></div>
-                        <!-- <input type="hidden" id="idInput"> -->
                     </div>
                 </form>
         </div>

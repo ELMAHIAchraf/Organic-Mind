@@ -18,7 +18,7 @@
 
     for($j=0; $j<7; $j++){
         for ($i=8; $i <= 24; $i++){
-            $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE due_date='$dates[$j] $i:00:00'";
+            $sql="SELECT * FROM tasks NATURAL JOIN lists WHERE due_date='$dates[$j] $i:00:00' AND id_user='{$_SESSION['id_user']}'";
             $query=mysqli_query($conn, $sql);
             $tab=mysqli_fetch_assoc($query);
             if(!empty($tab)){
