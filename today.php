@@ -62,7 +62,8 @@
                         </div>
                         `;
                         }
-                        
+                        document.getElementById('todayCount').innerHTML=data.length
+                        document.getElementById('todayCountTask').innerHTML=data.length
                     }
                 }
             }

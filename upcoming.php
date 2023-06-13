@@ -10,11 +10,7 @@
 <div id="upcoming" class="mainDiv">
 
 <h1 class="todayTitle">Upcoming</h1>
-<span  id="upcomingCount">
-<?php
-     echo $tab7['taskCount'];
-?>
-</span>
+<span  id="upcomingCount">0</span>
 
 <div id="upcomingContainer"> 
     <div id="firstRow">
@@ -183,9 +179,12 @@
                         </div>
                         `;
                         }
-                        
+                        document.getElementById('upcomingCount').innerHTML=data.length;
+                        document.getElementById('upcomingCountTask').innerHTML=data.length;
+
                     }
                 }
+
             }
             xhr.open('POST', 'update_later.php', true)
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

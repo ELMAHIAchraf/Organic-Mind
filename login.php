@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Default" href="/css/app-af6a05f42b013986b481566363f0186f.css?vsn=d">
-    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-cc491567b46eab1188c6538ebc462e7d.css?vsn=d">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
        #login{
@@ -61,17 +52,21 @@
             color: #484848;
             margin-top: -15px;
         }
-        #Par2Log{
+        #Par2Log, #forgotText{
             text-align: center;
             font-size: 14px;
             font-weight: bold;
             color: #484848;
             cursor: pointer;
             width: 200px;
-            margin-left: 110px;
+            margin-left: 100px;
         }
-        #Par2Log:hover{
+        #Par2Log:hover, #forgotText:hover{
             text-decoration: underline;
+        }
+        #forgotText{
+            margin-top: -5px;
+            margin-left: 103px;
         }
         #ButtLog{
             border: none;
@@ -129,32 +124,33 @@
                     </div>
                     <div class="taskNameTLog">
                         <input class="inputsLog" id="passwordContLog"  type="password" placeholder="Password">
-                        <i class="fa-solid fa-eyeLog" id="eyeLog" onclick="showPassword()"></i>
+                        <i class="fa-solid fa-eye" id="eyeLog" onclick="showPassword()"></i>
                     </div>
                     <p id="loginFail">Incorrect email or password</p>
                     <button id="ButtLog" onclick="Login()">Sign in</button>
                     <p id="Par2Log" onclick="openSignup2()">Don't have an account? Sign up</p>
+                    <p id="forgotText" onclick="openForgottenPw()">Forgot your password?</p>
             </div>
         </div>
     </div>
     </div>
     <script>
-    let counter=0;
+    let counter=1;
     function showPassword(){
         if(counter%2 != 0){
-            document.getElementById('passwordCont').setAttribute("type", "text");
-            document.getElementById('eyeLog').setAttribute("class", "fa-solid fa-eyeLog");
+            document.getElementById('passwordContLog').setAttribute("type", "text");
+            document.getElementById('eyeLog').setAttribute("class", "fa-solid fa-eye-slash");
         }else{
-            document.getElementById('passwordCont').setAttribute("type", "password");
-            document.getElementById('eyeLog').setAttribute("class", "fa-solid fa-eyeLog-slash");
+            document.getElementById('passwordContLog').setAttribute("type", "password");
+            document.getElementById('eyeLog').setAttribute("class", "fa-solid fa-eye");
         }
         counter++;
-
     }
     function openSignup2(){
         document.getElementById("login").style.display="none";
         document.getElementById("signup").style.display="flex";
     }
+    
     </script>
 </body>
 </html>

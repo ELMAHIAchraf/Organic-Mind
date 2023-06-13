@@ -10,10 +10,14 @@
                 $description=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['description'])));
                 $color=trim(mysqli_escape_string($conn, htmlspecialchars($_POST['color'])));
 
+
                 $sql="INSERT INTO stickies VALUES('', {$_SESSION['id_user']}, '$name', '$description', '$color')";
                 if(mysqli_query($conn, $sql)){
                     $id_sticky=mysqli_insert_id($conn);
-                    $tab=array("name"=>$name, "description"=>$description, "color"=>$color, "id_sticky"=>$id_sticky);
+                    $sql2="SELECT description_sticky FROM stickies WHERE id_sticky=$id_sticky";
+                    $query2=mysqli_query($conn, $sql2);
+                    $tab2=mysqli_fetch_row($query2);
+                    $tab=array("name"=>$name, "description"=>$tab2[0], "color"=>$color, "id_sticky"=>$id_sticky);
                     echo json_encode($tab);
                 }else{
                     echo "Error:".mysqli_error($conn);

@@ -17,7 +17,7 @@
                     $description=$tab['description_sticky'];
                     $description=str_replace('-', '<br>-', $description);
                     echo "
-                        <div class='stickyDiv' id='' style='background-color:{$tab['color_sticky']};'>
+                        <div class='stickyDiv' style='background-color:{$tab['color_sticky']};'>
                             <h3 class='stickyHeader'>{$tab['name_sticky']}</h3>
                             <p class='stickyContent'>{$description}</p>
                             <div class='trashContainer' onclick='sortIndexes();removeSticky(this.parentNode.id)'><i class='fa-solid fa-trash-can trashIcon'></i></div>

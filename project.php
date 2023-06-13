@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Default" href="/css/app-af6a05f42b013986b481566363f0186f.css?vsn=d">
+    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-cc491567b46eab1188c6538ebc462e7d.css?vsn=d">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
         body{
@@ -17,6 +26,7 @@
         include("index.php");
         include("login.php");
         include("signup.php");
+        include("forgotten pw.php");
         include("notification code.php");
     ?>
     <script>
@@ -50,7 +60,7 @@
             xhr.onload=function(){
                 if(xhr.status==200){
                     if(xhr.responseText==1){
-                        window.open("http://localhost/todo%20list/home.php", "_self");
+                        window.open("http://localhost/todo_list/home.php", "_self");
                     }else{
                         document.getElementById('loginFail').style.display='block';
                         document.getElementById('ButtLog').style.marginTop='0px';
@@ -60,6 +70,10 @@
             xhr.open('POST', 'login_user.php', true)
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send('email='+email+'&pwd='+pwd);
+        }
+        function openForgottenPw(){
+            document.getElementById("login").style.display="none";
+            document.getElementById("forgottenPw").style.display="flex"; 
         }
     </script>
 </body>

@@ -110,7 +110,7 @@
 
                     let stickyDiv=document.createElement('div');
                     stickyDiv.setAttribute('class', 'stickyDiv');
-                    stickyDiv.setAttribute('id', '');
+                    // stickyDiv.setAttribute('id', '');
                     stickyDiv.setAttribute('style', `background-color:${sticky.color};`);
 
                     let description=sticky.description;

@@ -3,7 +3,13 @@ CREATE TABLE Users(
     Fname VARCHAR(30),
     Lname VARCHAR(30),
     email VARCHAR(50) UNIQUE,
-    password VARCHAR(255)
+    password_user VARCHAR(255)
+);
+CREATE TABLE Tokens(
+    token varchar(255) PRIMARY KEY,
+    token_creation_time DATETIME,
+    id_user INT,
+    FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 CREATE TABLE Stickies(
 	id_sticky INT AUTO_INCREMENT PRIMARY KEY,

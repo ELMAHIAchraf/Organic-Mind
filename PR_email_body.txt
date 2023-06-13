@@ -1,0 +1,12 @@
+Dear [User],<br>
+
+We have received a request to reset your password. If you did not make this request, please ignore this email.<br>
+                
+To reset your password, please click the link below:<br>
+                
+[Password Reset Link]<br>
+                
+If you have any questions or concerns, please contact us at the email address down below.<br>
+                
+Best regards,<br>
+Organic Mind<br>

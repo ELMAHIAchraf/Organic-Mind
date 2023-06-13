@@ -125,7 +125,7 @@
             xhr.onload=function(){
                 if(xhr.status==200){
                     if(xhr.responseText==1){
-                        window.open("http://localhost/todo%20list/project.php", "_self")
+                        window.open("http://localhost/todo_list/project.php", "_self")
                     }
                 }
             }

@@ -2,10 +2,11 @@ function menuControl(action){
     if(action=='open'){
         document.getElementById('menu').style.display='inline-block';
         document.getElementById('openMenu').style.display='none';
-
+        document.getElementById('lineCont').style.width="1045px";
     }else{
         document.getElementById('openMenu').style.display='block';
         document.getElementById('menu').style.display='none';
+        document.getElementById('lineCont').style.width="1270px";
 
 
     }
@@ -165,50 +166,19 @@ function saveTaskChanges(){
     let xhr = new XMLHttpRequest();
             xhr.onload=function(){
                 if(xhr.status==200){
-                    if(xhr.responseText){
-                        let task=JSON.parse(xhr.responseText);
-                        let id=document.getElementById("idInput").value;
+                    if(xhr.response){
+                        let data=JSON.parse(xhr.responseText);
+                        updateToday();updateTomorrow();updateWeek();updateLater();getList(data.oldList), seachTasks();
+                        
+                        document.getElementById("Task").style.display="none";
 
-                        let dates=document.getElementsByClassName('subInfo taskDate'+task.id_task);
-                        for(let j=0; j<dates.length;j++){
-                            dates[j].innerHTML=task.due_dateS;
-                        }
 
-                        if(task.remove==0){
-                            document.getElementById('nameInput').value=task.name_task;
-                            document.getElementById('descriptionInput').value=task.description_task;
-                            document.getElementById(task.name_list).setAttribute('selected', 'selected');
-                            document.getElementById('dateInput').value=task.due_date;
-                            document.getElementById('timeInput').value=task.time;
-                            document.getElementById('idInput').value=task.id_task;
-                            document.getElementById('taskName'+task.id_task).innerHTML=task.name_task;
-                            document.getElementById('taskListColor'+task.id_task).style.backgroundColor=task.color_list;
-                            document.getElementById('taskListName'+task.id_task).innerHTML=task.name_list;
-                            
-                        }else if(task.remove==1 ||task.remove==4 ){
-                            let className=document.getElementsByClassName("tasks cl"+id)
-                            for(let i=0; i < className.length; i++){
-                                className[i].style.display="none";
-                            }
-                            document.getElementById("Task").style.display="none";
-                        }else if(task.remove==2){
-                            document.getElementsByClassName("tasks cl"+id)[0].style.display="none";
-                        }else{
-                            let className=document.getElementsByClassName("tasks cl"+id).length
-                            if(className==3){
-                                document.getElementsByClassName("tasks cl"+id)[0].style.display="none";
-                                document.getElementsByClassName("tasks cl"+id)[1].style.display="none";
-                            }else if(className==2){
-                                document.getElementsByClassName("tasks cl"+id)[0].style.display="none";
-                            }
-                        }
-
-                        let oldList=document.getElementById('listCount'+task.oldId_list).innerHTML;
+                        let oldList=document.getElementById('listCount'+data.oldListId).innerHTML;
                         oldList--;
-                        document.getElementById('listCount'+task.oldId_list).innerHTML=oldList;
-                        let newList=document.getElementById('listCount'+task.id_list).innerHTML;
+                        document.getElementById('listCount'+data.oldListId).innerHTML=oldList;
+                        let newList=document.getElementById('listCount'+data.newListId).innerHTML;
                         newList++;
-                        document.getElementById('listCount'+task.id_list).innerHTML=newList;
+                        document.getElementById('listCount'+data.newListId).innerHTML=newList;
                     }
                 }
             }

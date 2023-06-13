@@ -9,7 +9,7 @@
                 $sql="SELECT * FROM users WHERE email='$email'";
                 $query=mysqli_query($conn, $sql);
                 $tab=mysqli_fetch_assoc($query);
-                    if(password_verify($pwd, $tab['password'])){
+                    if(password_verify($pwd, $tab['password_user'])){
                         $_SESSION['id_user']=$tab['id_user'];
                         echo 1;
                     }else{
