@@ -341,19 +341,25 @@ function showList(name_list, listId){
 
 }
 function removeList(){
-        let xhr = new XMLHttpRequest();
+        if(id_list){
+        notify('Are you sure you want to delete the list?');
+        document.getElementById('ok').addEventListener('click', function(){
+            let xhr = new XMLHttpRequest();
             xhr.onload=function(){
                 if(xhr.status==200){
                     if(xhr.responseText==1){
                         document.getElementById(clicked+"Opt").style.display="none";
                         document.getElementById("listMain").style.display="none";
-                        showMain("today");
+                        showMain("today");updateToday();updateTomorrow();updateWeek();updateLater();
                     }
                 }
             }
             xhr.open('POST', 'remove_list.php', true)
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send('id_list='+id_list);
+            
+        })
+    }
 }
 
 

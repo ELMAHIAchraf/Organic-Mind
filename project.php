@@ -12,7 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <title>Login</title>
     <style>
         body{
             background-color: #f9f9f9;

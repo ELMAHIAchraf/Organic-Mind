@@ -64,7 +64,7 @@
             function hideNotification(){
                 if(event.target.id=='transparent-bgd' || event.target.id=='ok'){
                     document.getElementById('transparent-bgd').style.display="none";
-                    if(document.getElementById("signup").style.display=="flex"){
+                    if(document.getElementById("signup") && document.getElementById("signup").style.display=="flex"){
                         document.getElementById("signup").style.display="none";
                         document.getElementById("login").style.display="flex";
                     }

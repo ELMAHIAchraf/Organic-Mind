@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="home.js" defer></script>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
     <link rel="stylesheet" href="home.css">
     <title>Home</title>
 </head>
@@ -23,6 +24,7 @@
         if(isset($_SESSION) && !empty($_SESSION)){
             date_default_timezone_set('Africa/Casablanca');
             include('connexion.php');
+            include("notification code.php");
             include('add_sticky_form.php');
             include('add_list_form.php');
             include('add_subtask_form.php');
